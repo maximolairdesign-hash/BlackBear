@@ -675,18 +675,23 @@
     <!-- Loader -->
    
 
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    
     <script src="js/scripts-dist.js"></script>
     <script src="js/main.js"></script>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
     <script>
-      new Typed('.typed', {
-        strings: ['VIDEO EDITOR', 'VISUAL EFFECTS', 'DESIGNER', 'DESIGN MOTION', 'CREATIVE MIND', 'COMPOSITION'],
-        typeSpeed: 60,      
-        backSpeed: 40,      
-        backDelay: 2000,    
-        loop: true,
-        smartBackspace: true, // Efecto de recorte inteligente
-        cursorChar: '|'
+      document.addEventListener('DOMContentLoaded', function() {
+        new Typed('.typed', {
+          strings: ['VIDEO EDITOR', 'VISUAL EFFECTS', 'DESIGNER', 'DESIGN MOTION', 'CREATIVE MIND', 'COMPOSITION'],
+          typeSpeed: 60,      
+          backSpeed: 40,      
+          backDelay: 2000,    
+          loop: true,
+          smartBackspace: true,
+          cursorChar: '|',
+          autoInsertCss: true
+        });
       });
     </script>
   </body>
