@@ -95,7 +95,7 @@
     <div class="row align-items-center" style="height: 100vh;">
       <div class="col-md-10 mx-auto text-center">
         <h1 class="heading gsap-reveal-hero">BlackBear</h1>
-        <h2 class="subheading gsap-reveal-hero">Edición de video profesional y post-producción creativa.</h2>
+        <h2 class="subheading gsap-reveal-hero"><span class="typed" data-typed-items="VIDEO EDITOR, VISUAL EFFECTS, DESIGNER, DESIGN MOTION, CREATIVE MIND, COMPOSITION"></span></h2>
       </div>
     </div>
   </div>
@@ -678,7 +678,18 @@
     </div>
 
     <script src="js/scripts-dist.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+      new Typed('.typed', {
+        strings: ['VIDEO EDITOR', 'VISUAL EFFECTS', 'DESIGNER', 'DESIGN MOTION', 'CREATIVE MIND', 'COMPOSITION'],
+        typeSpeed: 50,      
+        backSpeed: 30,      
+        backDelay: 2000,    
+        loop: true,
+        smartBackspace: true, 
+        cursorChar: '|',
+        autoInsertCss: true
+      });
+    </script>
 
   </body>
 </html>
