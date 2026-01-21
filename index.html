@@ -678,7 +678,26 @@
     </div>
 
     <script src="js/scripts-dist.js"></script>
-   <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const typedElement = document.querySelector('.typed');
+        if (typedElement) {
+          let items = typedElement.getAttribute('data-typed-items');
+          items = items.split(',');
+          new Typed('.typed', {
+            strings: items,
+            typeSpeed: 60,      // Velocidad al escribir
+            backSpeed: 40,      // Velocidad al borrar
+            backDelay: 2000,    // Tiempo que se queda la palabra escrita
+            loop: true,
+            smartBackspace: true, // No borra las letras que son iguales al inicio
+            cursorChar: '|'
+          });
+        }
+      });
+    </script>
   </body>
 </html>
 
