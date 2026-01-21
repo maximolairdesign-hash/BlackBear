@@ -22,37 +22,39 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* Video fijo que vive detrás de toda la web */
+      /* Fondo de video fijo detrás de todo el contenido */
       .video-bg-global {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
-        z-index: -1; /* Al fondo de todo */
-        background-color: #000;
+        height: 100%;
+        z-index: -1;
+        background: #000;
       }
       .video-bg-global video {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        opacity: 0.4; /* Ajusta este valor para que el video sea más o menos brillante */
+        opacity: 0.5;
       }
 
-      /* Hacemos transparentes las secciones que antes eran negras */
+      /* Hacemos transparentes las secciones negras para ver el video de fondo */
       body, 
       .unslate_co--site-wrap, 
       .unslate_co--site-inner, 
-      .unslate_co--section,
+      .unslate_co--section, 
       .cover-v1 {
         background-color: transparent !important;
       }
 
-      /* EL FOOTER: Se queda en su lugar (abajo), es gris y tapa el video al final */
+      /* EL FOOTER: Se queda al final de la web, NO se queda fijo en el monitor */
       .unslate_co--footer {
-        background-color: #191919 !important; /* El color gris sólido */
-        position: relative;
-        z-index: 1; /* Para que pase por encima del video cuando haces scroll */
+        background-color: #191919 !important; /* El tono gris sólido de tu imagen */
+        position: relative !important;
+        display: block !important;
+        z-index: 10 !important;
+        margin-top: 0;
       }
     </style>
 
