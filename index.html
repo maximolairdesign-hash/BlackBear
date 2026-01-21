@@ -63,9 +63,8 @@
               </ul>
             </div>
             <div class="site-logo pos-absolute">
-  <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: flex; align-items: center; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); color: #000 !important; font-weight: 700; text-decoration: none;">
-    <img src="images/logo.png" alt="Icon" style="height: 30px; width: auto; margin-right: 10px;">
-    BlackBear.
+  <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: inline-block; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+    <img src="images/logo.png" alt="BlackBear Logo" style="height: 40px; width: auto; vertical-align: middle;">
   </a>
 </div>
             <div class="col-md-5 text-right text-lg-left">
@@ -673,26 +672,13 @@
 
     
     <!-- Loader -->
-   
+    <div id="unslate_co--overlayer"></div>
+    <div class="site-loader-wrap">
+      <div class="site-loader"></div>
+    </div>
 
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    
     <script src="js/scripts-dist.js"></script>
-    <script src="js/main.js"></script>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        new Typed('.typed', {
-          strings: ['VIDEO EDITOR', 'VISUAL EFFECTS', 'DESIGNER', 'DESIGN MOTION', 'CREATIVE MIND', 'COMPOSITION'],
-          typeSpeed: 60,      
-          backSpeed: 40,      
-          backDelay: 2000,    
-          loop: true,
-          smartBackspace: true,
-          cursorChar: '|',
-          autoInsertCss: true
-        });
-      });
-    </script>
+   <script src="js/main.js"></script>
   </body>
 </html>
+
