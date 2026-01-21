@@ -672,12 +672,22 @@
 
     
     <!-- Loader -->
-    <div id="unslate_co--overlayer"></div>
-    <div class="site-loader-wrap">
-      <div class="site-loader"></div>
-    </div>
+   
 
     <script src="js/scripts-dist.js"></script>
-   <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+      new Typed('.typed', {
+        strings: ['VIDEO EDITOR', 'VISUAL EFFECTS', 'DESIGNER', 'DESIGN MOTION', 'CREATIVE MIND', 'COMPOSITION'],
+        typeSpeed: 60,      // Velocidad al escribir
+        backSpeed: 40,      // Velocidad al borrar
+        backDelay: 2000,    // Tiempo que se queda la palabra escrita
+        loop: true,
+        smartBackspace: true, // Efecto de recorte inteligente (mantiene las letras iguales)
+        cursorChar: '|',
+        autoInsertCss: true
+      });
+    </script>
   </body>
 </html>
