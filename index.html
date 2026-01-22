@@ -89,28 +89,26 @@
   max-width: 100%;
   margin: 0 auto;
 }
-  .swipe-gif-container {
-  text-align: center;
-  margin-top: 40px;
-  width: 100%;
-}
-
-.swipe-gif-container img {
-  width: 150px;
-  height: auto;
-  display: inline-block;
-}
+/* Estilos finales para el GIF y Testimonios */
 .swipe-gif-container {
   text-align: center;
-  margin-top: 20px;
+  margin-top: -30px !important; /* Valor negativo para acercarlo más */
   width: 100%;
 }
 
 .swipe-gif-container img {
-  width: 150px;
+  width: 130px; /* Un poco más pequeño para que no se encime */
   height: auto;
   display: inline-block;
-  opacity: 1;
+}
+
+.testimonial-slider .owl-dots {
+  margin-top: 0 !important;
+  bottom: 0 !important;
+}
+
+.testimonial-v1 .testimonial-inner-bg {
+  padding-bottom: 60px !important; /* Ajustado para que la foto no flote tan lejos */
 }
     </style>
 
@@ -535,7 +533,7 @@
 <div class="owl-carousel" id="dynamic-carousel" data-aos="fade-up">
   </div>
 
-  <div class="swipe-gif-container">
+  <div class="swipe-gif-container" data-aos="fade-in" data-aos-duration="3000" data-aos-delay="100">
     <img src="images/swip.gif" alt="Swipe">
   </div>
 </div> 
