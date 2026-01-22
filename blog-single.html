@@ -15,25 +15,32 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* FIX: Estructura para footer al fondo absoluto */
+      /* Lógica para empujar el footer al fondo absoluto */
       html, body { height: 100%; margin: 0; padding: 0; }
-      .unslate_co--site-wrap, .unslate_co--site-inner { 
+      .unslate_co--site-wrap { 
         min-height: 100vh; 
         display: flex; 
         flex-direction: column; 
         background-color: transparent !important; 
-        color: #fff; 
+      }
+      .unslate_co--site-inner { 
+        display: flex; 
+        flex-direction: column; 
+        flex: 1; 
+        background-color: transparent !important; 
       }
 
       /* Fondo de video fijo del index */
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+      body { color: #fff; }
+      .unslate_co--section, .cover-v1 { background-color: transparent !important; }
       
       /* Cabecera del Post */
       #post-header { height: 70vh !important; background-size: cover; background-position: center; position: relative; flex-shrink: 0; }
       #post-header.overlay:before { content: ""; position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); }
       
-      /* Visibilidad del Texto */
+      /* Visibilidad del Texto (Blanco Puro) */
       .post-content { 
         font-size: 1.15rem; 
         line-height: 1.9; 
@@ -64,15 +71,14 @@
       .comment-form-wrap form { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 12px; }
       .form-control { background: rgba(0,0,0,0.6) !important; border: 1px solid rgba(255,255,255,0.2) !important; color: #fff !important; }
       
-      /* FOOTER GRIS FINAL (CORREGIDO) */
+      /* FOOTER GRIS FINAL (IGUAL AL INDEX CON FIX DE POSICIÓN) */
       .unslate_co--footer {
         background-color: #191919 !important;
         position: relative !important;
         padding: 80px 0 !important;
-        margin-top: auto !important; /* EMPUJA EL FOOTER HASTA EL FONDO TOTAL */
+        margin-top: auto !important; /* Esta línea empuja la barra hasta el fondo */
         z-index: 10 !important;
         width: 100%;
-        border: none !important; /* ELIMINA LA LÍNEA NEGRA */
       }
     </style>
   </head>
