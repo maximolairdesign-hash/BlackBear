@@ -15,26 +15,36 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+      /* FIX ESTRUCTURAL: Lógica para que el footer toque siempre el fondo */
+      html, body { height: 100%; margin: 0; padding: 0; }
+      .unslate_co--site-wrap { 
+        display: flex; 
+        flex-direction: column; 
+        min-height: 100vh; 
+        background-color: transparent !important; 
+      }
+      .unslate_co--site-inner { 
+        flex: 1 0 auto; 
+        background-color: transparent !important; 
+      }
+
       /* Fondo de video fijo del index */
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-      body, .unslate_co--site-wrap, .unslate_co--site-inner, .unslate_co--section, .cover-v1 { background-color: transparent !important; color: #fff; }
+      body { color: #fff; }
+      .unslate_co--section, .cover-v1 { background-color: transparent !important; }
       
-      /* Ajuste de altura para forzar el footer al fondo */
-      .unslate_co--site-inner { min-height: 100vh; display: flex; flex-direction: column; }
-      .unslate_co--section { flex: 1; }
-
       /* Cabecera del Post */
       #post-header { height: 70vh !important; background-size: cover; background-position: center; position: relative; }
       #post-header.overlay:before { content: ""; position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); }
       
-      /* Video Wrapper para YouTube/Drive */
-      .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 30px 0; border-radius: 10px; }
-      .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-
       /* Visibilidad del Texto */
       .post-content { font-size: 1.15rem; line-height: 1.9; color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
       .post-content img { width: 100%; border-radius: 10px; margin: 35px 0; border: 1px solid rgba(255,255,255,0.1); }
+      
+      /* Reproductor de Video */
+      .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 30px 0; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
+      .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
       /* Animación Scroll Mouse */
       .scroll-container-blog { text-align: center; margin-top: 25px; width: 100%; }
@@ -152,27 +162,24 @@
           </div>
         </div>
 
-        <footer class="unslate_co--footer">
-          <div class="container text-center">
-            <div class="footer-site-logo">
-              <a href="index.html" style="background: white; padding: 10px 15px; border-radius: 5px; display: inline-block; margin-bottom: 25px;">
-                <img src="images/logo.png" alt="Logo" style="height: 35px;">
-              </a>
-            </div>
-            <ul class="footer-site-social mb-4" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 40px;">
-              <li><a href="#" style="color:#fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;">FACEBOOK</a></li>
-              <li><a href="#" style="color:#fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;">INSTAGRAM</a></li>
-            </ul>
-            <p class="site-copyright" style="opacity:0.6; font-size:13px; color:#fff;">
-              Copyright &copy; <script>document.write(new Date().getFullYear());</script> BlackBear. All rights reserved.
-            </p>
+      </div> <footer class="unslate_co--footer unslate_co--section">
+        <div class="container text-center">
+          <div class="footer-site-logo">
+            <a href="index.html" style="background: white; padding: 8px 12px; display: inline-block; border-radius: 5px; margin-bottom: 25px;">
+              <img src="images/logo.png" alt="Logo" style="height: 35px;">
+            </a>
           </div>
-        </footer>
+          <ul class="footer-site-social mb-4" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 40px;">
+            <li><a href="#" style="color:#fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;">FACEBOOK</a></li>
+            <li><a href="#" style="color:#fff; font-size: 11px; font-weight: 700; letter-spacing: 2px;">INSTAGRAM</a></li>
+          </ul>
+          <p class="site-copyright" style="opacity:0.6; font-size:13px; color:#fff;">
+            Copyright &copy; <script>document.write(new Date().getFullYear());</script> BlackBear. All rights reserved.
+          </p>
+        </div>
+      </footer>
 
-      </div>
-    </div>
-
-    <script src="js/scripts-dist.js"></script>
+    </div> <script src="js/scripts-dist.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
@@ -183,6 +190,7 @@
 
       const currentID = new URLSearchParams(window.location.search).get('id') || 1;
 
+      // FUNCIÓN PARA CONVERTIR LINKS A REPRODUCTOR
       function parseVideos(text) {
         text = text.replace(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/g, 
           '<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/$1" allowfullscreen></iframe></div>');
