@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* FIX: Lógica Flexbox para empujar el footer al fondo absoluto */
+      /* FIX: Estructura para footer al fondo absoluto */
       html, body { height: 100%; margin: 0; padding: 0; }
       .unslate_co--site-wrap, .unslate_co--site-inner { 
         min-height: 100vh; 
@@ -64,15 +64,15 @@
       .comment-form-wrap form { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 12px; }
       .form-control { background: rgba(0,0,0,0.6) !important; border: 1px solid rgba(255,255,255,0.2) !important; color: #fff !important; }
       
-      /* FOOTER GRIS FINAL (FIJADO AL FONDO) */
+      /* FOOTER GRIS FINAL (CORREGIDO) */
       .unslate_co--footer {
         background-color: #191919 !important;
         position: relative !important;
         padding: 80px 0 !important;
-        margin-top: auto !important; /* EMPUJA EL FOOTER HASTA ABAJO */
+        margin-top: auto !important; /* EMPUJA EL FOOTER HASTA EL FONDO TOTAL */
         z-index: 10 !important;
         width: 100%;
-        border: none !important;
+        border: none !important; /* ELIMINA LA LÍNEA NEGRA */
       }
     </style>
   </head>
