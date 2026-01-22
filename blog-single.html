@@ -15,38 +15,25 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* FIX DEFINITIVO: Lógica para que el footer toque siempre el fondo */
-      html, body { height: 100%; margin: 0; padding: 0; }
-      .unslate_co--site-wrap { 
-        min-height: 100vh; 
-        display: flex; 
-        flex-direction: column; 
-        background-color: transparent !important; 
-      }
-      .unslate_co--site-inner { 
-        flex: 1 0 auto; 
-        display: flex; 
-        flex-direction: column; 
-        background-color: transparent !important; 
-      }
-
       /* Fondo de video fijo del index */
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-      body { color: #fff; }
-      .unslate_co--section, .cover-v1 { background-color: transparent !important; }
+      body, .unslate_co--site-wrap, .unslate_co--site-inner, .unslate_co--section, .cover-v1 { background-color: transparent !important; color: #fff; }
       
+      /* Ajuste de altura para forzar el footer al fondo */
+      .unslate_co--site-inner { min-height: 100vh; display: flex; flex-direction: column; }
+      .unslate_co--section { flex: 1; }
+
       /* Cabecera del Post */
-      #post-header { height: 70vh !important; background-size: cover; background-position: center; position: relative; flex-shrink: 0; }
+      #post-header { height: 70vh !important; background-size: cover; background-position: center; position: relative; }
       #post-header.overlay:before { content: ""; position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.5); }
       
+      /* Video Wrapper para YouTube/Drive */
+      .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin: 30px 0; border-radius: 10px; }
+      .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
       /* Visibilidad del Texto */
-      .post-content { 
-        font-size: 1.15rem; 
-        line-height: 1.9; 
-        color: #ffffff !important; 
-        text-shadow: 0 2px 10px rgba(0,0,0,0.9); 
-      }
+      .post-content { font-size: 1.15rem; line-height: 1.9; color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
       .post-content img { width: 100%; border-radius: 10px; margin: 35px 0; border: 1px solid rgba(255,255,255,0.1); }
 
       /* Animación Scroll Mouse */
@@ -60,7 +47,6 @@
       .navigation-post { padding: 60px 0; margin-top: 20px; border-top: none !important; }
       .navigation-post span { color: #ffffff; opacity: 0.6; text-transform: uppercase; font-size: 11px; letter-spacing: 2px; font-weight: 700; display: block; margin-bottom: 5px; }
       .navigation-post p { color: #ffffff !important; font-weight: 800; font-size: 1.4rem; margin: 0; }
-      .navigation-post a { text-decoration: none !important; }
       
       /* Estilo de Comentarios Blanco */
       .comment-v1 { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 25px 0; list-style: none; }
@@ -71,15 +57,14 @@
       .comment-form-wrap form { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 12px; }
       .form-control { background: rgba(0,0,0,0.6) !important; border: 1px solid rgba(255,255,255,0.2) !important; color: #fff !important; }
       
-      /* FOOTER GRIS FINAL */
+      /* FOOTER EXACTO AL INDEX */
       .unslate_co--footer {
         background-color: #191919 !important;
         position: relative !important;
-        padding: 80px 0 !important;
-        margin-top: auto !important; /* EMPUJA EL FOOTER HASTA EL FONDO ABSOLUTO */
+        display: block !important;
         z-index: 10 !important;
+        margin-top: 0;
         width: 100%;
-        border: none !important;
       }
     </style>
   </head>
@@ -198,12 +183,20 @@
 
       const currentID = new URLSearchParams(window.location.search).get('id') || 1;
 
+      function parseVideos(text) {
+        text = text.replace(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/g, 
+          '<div class="video-wrapper"><iframe src="https://www.youtube.com/embed/$1" allowfullscreen></iframe></div>');
+        text = text.replace(/(?:https?:\/\/)?drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view\S*/g, 
+          '<div class="video-wrapper"><iframe src="https://drive.google.com/file/d/$1/preview"></iframe></div>');
+        return text;
+      }
+
       Papa.parse(URL_POSTS, { download: true, header: true, complete: function(res) {
         const posts = res.data.filter(p => p.ID && p.ID.trim() !== "");
         const post = posts.find(p => p.ID == currentID) || posts[0];
         document.getElementById('post-title').innerText = post.Titulo;
         document.getElementById('post-meta').innerText = `By ${post.Autor} • ${post.Fecha}`;
-        document.getElementById('post-content').innerHTML = post.Contenido;
+        document.getElementById('post-content').innerHTML = parseVideos(post.Contenido);
         document.getElementById('post-header').style.backgroundImage = `url('${post.ImagenPortada}')`;
         
         let idx = posts.findIndex(p => p.ID == currentID);
@@ -218,18 +211,14 @@
         const comments = res.data.filter(c => c.PostID == currentID);
         document.getElementById('comment-count').innerText = `${comments.length} Comments`;
         document.getElementById('dynamic-comments').innerHTML = comments.reverse().map(c => `
-          <li class="comment-v1">
-            <h4>${c.Nombre}</h4>
-            <div style="opacity:0.5; font-size:12px;">${c.Fecha}</div>
-            <p>${c.Mensaje}</p>
-          </li>`).join('');
+          <li class="comment-v1"><h4>${c.Nombre}</h4><div style="opacity:0.5; font-size:12px;">${c.Fecha}</div><p>${c.Mensaje}</p></li>`).join('');
       }});
 
       document.getElementById('commentForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('submitBtn'); btn.value = "Sending..."; btn.disabled = true;
         const fd = new URLSearchParams(); fd.append('postID', currentID); fd.append('name', document.getElementById('name').value); fd.append('message', document.getElementById('message').value);
-        fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', body: fd }).then(() => { alert("Success!"); location.reload(); });
+        fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', body: fd }).then(() => { location.reload(); });
       });
     </script>
   </body>
