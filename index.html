@@ -474,16 +474,15 @@
       <!-- END .counter -->
 
     <div class="unslate_co--section" id="testimonial-section">
-        <div class="container">
-          <div class="section-heading-wrap text-center mb-5">
-            <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">My Happy Clients</span></h2>
-            <span class="gsap-reveal"><img src="images/divider.png" alt="divider" width="76"></span>
-          </div>
-          
-          <div class="owl-carousel testimonial-slider" id="dynamic-carousel" data-aos="fade-up">
-            </div>
-        </div>
-      </div>
+  <div class="container">
+    <div class="section-heading-wrap text-center mb-5">
+      <h2 class="heading-h2 text-center divider"><span class="gsap-reveal">My Happy Clients</span></h2>
+      <span class="gsap-reveal"><img src="images/divider.png" alt="divider" width="76"></span>
+    </div>
+  </div>
+
+  <div class="owl-carousel" id="dynamic-carousel" data-aos="fade-up" style="display: block; width: 100%;">
+    </div>
 
 </div>
      
@@ -711,19 +710,19 @@ document.addEventListener('DOMContentLoaded', function() {
     complete: function(results) {
       let datos = results.data;
       
-      // Filtramos para que no salgan secciones en blanco
+      // 1. Filtramos filas vacías (para que no salgan cuadros negros)
       const reseñasValidas = datos.filter(fila => fila.Texto && fila.Texto.trim() !== "");
 
-      // Mezcla aleatoria
+      // 2. Mezclamos aleatoriamente
       reseñasValidas.sort(() => Math.random() - 0.5);
 
+      // 3. Generamos el HTML (Importante el <div> extra para Owl Carousel)
       let htmlFinal = "";
       reseñasValidas.forEach(reseña => {
-        // Si no hay foto en el Excel, usa la genérica
         let fotoURL = reseña.Foto && reseña.Foto.trim() !== "" ? reseña.Foto : "images/person_man_1.jpg";
         
         htmlFinal += `
-          <div class="item">
+          <div>
             <div class="testimonial-v1">
               <div class="testimonial-inner-bg">
                 <span class="quote">&ldquo;</span>
@@ -738,24 +737,21 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>`;
       });
 
-      // Insertamos las reseñas
+      // 4. Inyectamos las reseñas
       $carousel.html(htmlFinal);
 
-      // ACTIVAMOS EL CARRUSEL: 10 segundos, Flechas y Puntos
-      if ($.fn.owlCarousel) {
-        $carousel.owlCarousel({
-          items: 1,
-          loop: true,
-          margin: 30,
-          autoplay: true,
-          autoplayTimeout: 10000, 
-          smartSpeed: 1000,
-          nav: true,  // Activa Flechas
-          dots: true, // Activa Puntos
-          navText: ['<span class="icon-keyboard_arrow_left"></span>', '<span class="icon-keyboard_arrow_right"></span>'],
-          autoplayHoverPause: true
-        });
-      }
+      // 5. ACTIVAMOS EL CARRUSEL (Configurado a 10 segundos)
+      $carousel.owlCarousel({
+        items: 1,               // Una reseña a la vez
+        loop: true,              // Bucle infinito
+        margin: 30,
+        autoplay: true,          // Movimiento automático
+        autoplayTimeout: 10000,  // 10 segundos por slide
+        smartSpeed: 1000,        // Velocidad del deslizamiento
+        nav: false,
+        dots: true,              // Puntitos de navegación activados
+        autoplayHoverPause: true // Se pausa si pones el mouse encima
+      });
     }
   });
 });
