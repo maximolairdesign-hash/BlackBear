@@ -104,33 +104,45 @@ dotlottie-player {
   transform: rotate(90deg);
 }
       /* --- COPIA Y PEGA ESTO AL FINAL DE TU <style> --- */
+/* --- CORRECCIÓN DEFINITIVA PARA EL HOVER DEL JOURNAL --- */
 #journal-grid .blog-item { position: relative; overflow: hidden; background: #000; }
 
-/* Gradiente negro abajo para que el texto blanco brille */
+/* 1. El gradiente oscuro base */
 #journal-grid .overlay {
-  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 60%, transparent 100%) !important;
-  opacity: 1 !important; 
+  /* Hacemos el negro de abajo un poco más intenso */
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, transparent 100%) !important;
+  opacity: 1 !important; /* Siempre visible */
+  transition: all 0.3s ease;
 }
 
-/* Imagen un poco más oscura para dar contraste */
+/* 2. AL PASAR EL MOUSE: Forzamos que se mantenga oscuro */
+#journal-grid .blog-item:hover .overlay {
+  /* Al hacer hover, el gradiente se mantiene fuerte, no dejamos que se aclare */
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 60%, transparent 100%) !important;
+  opacity: 1 !important;
+}
+
+/* 3. Comportamiento de la imagen */
 #journal-grid img {
-  filter: brightness(0.7);
+  filter: brightness(0.7); /* Oscura normal */
   transition: 0.3s ease-in-out;
 }
-#journal-grid .blog-item:hover img { filter: brightness(0.9); }
+/* Al pasar el mouse, la imagen se aclara SOLO UN POCO, no demasiado */
+#journal-grid .blog-item:hover img {
+  filter: brightness(0.85) scale(1.05); /* Agregué un pequeño zoom elegante */
+}
 
-/* Texto con sombra pesada para legibilidad total */
+/* 4. Textos con sombra reforzada */
 #journal-grid .portfolio-item-content h3 {
   color: #fff !important;
-  text-shadow: 2px 2px 15px rgba(0,0,0,1);
-  font-weight: 800 !important;
-  font-size: 1.5rem;
+  text-shadow: 3px 3px 15px rgba(0,0,0,1); /* Sombra más fuerte */
+  font-weight: 900 !important;
+  font-size: 1.6rem;
 }
 #journal-grid .post-meta {
-  color: #fff !important;
-  opacity: 0.9;
-  text-shadow: 1px 1px 5px rgba(0,0,0,1);
-  font-weight: 600;
+  color: #ddd !important; /* Un gris muy claro para diferenciar del título */
+  text-shadow: 2px 2px 10px rgba(0,0,0,1);
+  font-weight: 700;
 }
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
