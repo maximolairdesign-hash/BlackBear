@@ -310,25 +310,37 @@ input:-webkit-autofill:focus {
     color: #000000 !important; 
     transform: scale(1.12); /* Zoom suave */
 }
-/* --- FIX TOTAL: TEXTO EN PORTADAS (GRID) --- */
+/* --- PORTADAS (Portfolio & Journal): ALINEACIÓN IZQUIERDA Y ESTILO --- */
+.portfolio-item-content {
+    text-align: left !important; /* Fuerza el texto a la izquierda */
+    padding: 30px !important;    /* Espacio interno para que no toque los bordes */
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
 .portfolio-item-content h3 {
-    font-weight: 900 !important; /* ¡TITULO SÚPER BOLD! */
+    text-align: left !important;
+    font-weight: 900 !important;  /* Título Súper Bold */
     color: #ffffff !important;
     font-size: 1.5rem !important;
+    margin-bottom: 15px !important; /* Separa el título del texto de abajo */
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 5px !important;
 }
 
 .portfolio-item-content p, 
 .portfolio-item-content .post-meta {
-    color: #ffffff !important; /* Texto Blanco */
-    opacity: 0.6 !important;   /* Con Opacidad (Grisáceo elegante) */
+    text-align: left !important;
+    color: #ffffff !important;
+    opacity: 0.6 !important;     /* Blanco con opacidad elegante */
     font-weight: 400 !important;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 2px;         /* Letras separadas */
     font-size: 10px !important;
-}      
+    margin: 0 !important;
+}     
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
