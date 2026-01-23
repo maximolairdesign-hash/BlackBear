@@ -933,7 +933,12 @@ document.addEventListener('DOMContentLoaded', function() {
   window.closeProject = function() {
     gsap.to("#project-single-view", {duration: 0.4, opacity: 0, display: "none", onComplete: () => {
       $('#project-video-content').empty();
-      gsap.to("#portfolio-grid-container", {duration: 0.4, opacity: 1, display  
-  </body>
+      gsap.to("#portfolio-grid-container", {duration: 0.4, opacity: 1, display: "block"});
+      $('#posts').isotope('layout');
+    }});
+  };
+});
+</script>
+</body>
 </html>
 
