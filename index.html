@@ -664,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           <div class="row justify-content-between">
             
-            <div class="col-md-6">
+          <div class="col-md-6">
   <form method="post" id="contactFormMain">
     <div class="form-group row mb-0">
       <div class="col-lg-6 form-group">
@@ -683,28 +683,24 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="form-group row">
       <div class="col-md-12 d-flex align-items-center">
         <input type="submit" class="btn btn-outline-pill btn-custom-light mr-3" value="Send Message" id="contactSubmitBtn">
-        <span id="contact-loader" style="display:none; color: white;">🚀 Sending to Excel...</span>
+        <span id="contact-loader" style="display:none; color: white;">🚀 Sending...</span>
       </div>
     </div>
   </form>
 </div>
 
             <div class="col-md-4">
-              <div class="contact-info-v1">
-                <div class="gsap-reveal d-block">
-                  <span class="d-block contact-info-label">Email</span>
-                  <a href="#" class="contact-info-val">info@yourdomain.com</a>
-                </div>
-                <div class="gsap-reveal d-block">
-                  <span class="d-block contact-info-label">Phone</span>
-                  <a href="#" class="contact-info-val">+12 345 6789 012</a>
-                </div>
-                <div class="gsap-reveal d-block">
-                  <span class="d-block contact-info-label">Address</span>
-                  <address class="contact-info-val">273 South Riverview Rd. <br> New York, NY 10011</address>
-                </div>
-              </div>
-            </div>
+  <div class="contact-info-v1">
+    <div class="gsap-reveal d-block">
+      <span class="d-block contact-info-label">Email</span>
+      <a href="mailto:maximolairdesign@gmail.com" class="contact-info-val">maximolairdesign@gmail.com</a>
+    </div>
+    <div class="gsap-reveal d-block">
+      <span class="d-block contact-info-label">Phone</span>
+      <a href="tel:+522211319056" class="contact-info-val">+52 2211319056</a>
+    </div>
+  </div>
+</div>
 
           </div>
         </div>
@@ -850,13 +846,14 @@ document.getElementById('contactFormMain').addEventListener('submit', function(e
     body: data
   })
   .then(() => {
-    alert("¡Éxito! Tu mensaje ya está en el Excel.");
+    // MENSAJE DE ÉXITO ORIGINAL EN INGLÉS
+    alert("Message received! We'll get back to you shortly.");
     document.getElementById('contactFormMain').reset();
     btn.style.display = 'inline-block';
     loader.style.display = 'none';
   })
   .catch(error => {
-    alert("Algo salió mal. Intenta de nuevo.");
+    alert("Something went wrong. Please try again.");
     btn.style.display = 'inline-block';
     loader.style.display = 'none';
   });
