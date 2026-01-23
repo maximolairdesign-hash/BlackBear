@@ -105,55 +105,60 @@ dotlottie-player {
 }
 /* --- ESTILO UNIFICADO BLACKBEAR (PORTFOLIO & JOURNAL) --- */
 
-/* Ajuste de los contenedores para ambas secciones */
-.blog-item, .portfolio-item {
-  position: relative;
-  overflow: hidden;
+/* --- ESTILO UNIFICADO: ZOOM ORIGINAL + TEXTO ALINEADO --- */
+
+/* 1. MANTENEMOS TU ANIMACIÓN ORIGINAL (Valores exactos que tenías) */
+.blog-item img, .portfolio-item img {
+  filter: brightness(0.75);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease !important;
 }
 
-/* Overlay unificado: Oscurece el fondo para que el texto se lea bien */
+.blog-item:hover img, .portfolio-item:hover img {
+  transform: scale(1.1) !important;
+  filter: brightness(0.9) !important;
+}
+
+/* 2. EL OVERLAY: Sombra para que el texto sea legible */
 .blog-item .overlay, .portfolio-item .overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, transparent 100%) !important;
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 50%, transparent 100%) !important;
   opacity: 1 !important;
 }
 
-/* EL TEXTO: Alineación izquierda y separación de los bordes (Padding) */
+/* 3. EL TEXTO: Aquí arreglamos el alineado y el "pegado" */
 .portfolio-item-content {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 30px !important; /* SEPARACIÓN DE LOS BORDES */
-  text-align: left !important; /* ALINEACIÓN A LA IZQUIERDA */
+  padding: 30px !important; /* Espacio para que no esté pegado al borde */
+  text-align: left !important; /* Todo alineado a la izquierda */
   z-index: 10;
 }
 
-/* Títulos: Uniformidad total */
 .portfolio-item-content h3 {
   color: #ffffff !important;
-  font-size: 1.5rem !important;
+  text-shadow: 0 2px 15px rgba(0,0,0,1);
   font-weight: 800 !important;
+  font-size: 1.6rem;
+  margin-bottom: 8px;
   text-transform: uppercase;
-  margin-bottom: 5px !important;
-  text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
   transition: transform 0.3s ease;
 }
 
-/* Subtítulos (Categoría, autor, etc) */
-.portfolio-item-content p, 
-.portfolio-item-content .post-meta {
+.portfolio-item-content p, .post-meta {
   color: #ffffff !important;
-  opacity: 0.8;
-  font-size: 0.85rem !important;
+  opacity: 0.9;
+  text-shadow: 0 1px 8px rgba(0,0,0,1);
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin: 0 !important;
+  transition: transform 0.3s ease;
 }
 
-/* Efecto hover: El texto sube un poco al pasar el mouse */
-.blog-item:hover h3, .portfolio-item:hover h3 {
-  transform: translateY(-5px);
+/* 4. ANIMACIÓN DEL TEXTO (Tu efecto original de subir al pasar el mouse) */
+.blog-item:hover h3, .portfolio-item:hover h3,
+.blog-item:hover .post-meta, .portfolio-item:hover p {
+  transform: translateY(-5px) !important;
 }
      /* FIX DEFINITIVO: Texto blanco al escribir */
 .form-control, 
