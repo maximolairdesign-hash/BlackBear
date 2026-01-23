@@ -196,50 +196,22 @@ input:-webkit-autofill:focus {
   font-weight: 600;
 } 
 /* PEGA ESTO */
-#project-single-view h2, 
-#project-single-view h3, 
-#project-single-view p, 
-#project-single-view span, 
-#project-single-view strong {
+/* PEGA ESTO LITERALMENTE */
+#project-single-view, #project-single-view h2, #project-single-view h3, #project-single-view p, #project-single-view span, #project-single-view strong {
     color: #ffffff !important;
     font-weight: 700 !important;
-}
-
-.close-v1 {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none !important;
-}
-
-.icon-text {
-    font-size: 11px;
+    font-family: inherit !important;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-right: 15px;
-    color: #ffffff;
-    font-weight: 700;
+    letter-spacing: 1px;
 }
-
-.close-circle {
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    display: flex; /* Para centrar la X */
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    line-height: 0;
-    color: #ffffff;
-    transition: all 0.3s ease;
-    padding-bottom: 4px; /* Ajuste fino de centrado */
-}
-
-.close-v1:hover .close-circle {
-    background: #ffffff !important;
-    color: #000000 !important;
-    transform: scale(1.1);
-}
+#project-single-view h3 { font-size: 11px; color: #888 !important; margin-bottom: 10px; }
+#project-single-view p { font-size: 15px; line-height: 1.6; margin-bottom: 30px; text-transform: none !important; }
+#project-single-view strong { font-size: 16px; display: block; margin-top: 5px; text-transform: none !important; }
+.close-v1 { display: inline-flex; align-items: center; text-decoration: none !important; transition: transform 0.3s ease; cursor: pointer !important; }
+.close-v1:hover { transform: scale(1.2); }
+.icon-text { font-size: 11px; margin-right: 15px; color: #ffffff !important; }
+.close-circle { width: 50px; height: 50px; border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; line-height: 0; color: #ffffff; transition: all 0.3s ease; padding-bottom: 4px; }
+.close-v1:hover .close-circle { background: #ffffff !important; color: #000000 !important; }
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -864,60 +836,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 3. FUNCIÓN PARA ABRIR LA FICHA TÉCNICA (Diseño Modern Building)
+/* PEGA ESTO LITERALMENTE */
 window.openProject = function(id) {
     const p = window.portfolioItems.find(x => x.ID == id);
     if(!p) return;
-
-    // Animación de salida de la cuadrícula
     gsap.to("#portfolio-grid-container", { duration: 0.4, y: 50, opacity: 0, display: "none", ease: "power2.in" });
-
-    // Llenado de datos
     document.getElementById('project-title').innerText = p.Titulo;
     document.getElementById('project-desc').innerText = p.Descripcion;
     document.getElementById('project-date').innerText = p.Fecha || "2024";
     document.getElementById('project-client').innerText = p.Cliente || "Private Client";
-
     let url = p.VideoURL;
     let content = (url.includes('youtube.com') || url.includes('youtu.be')) 
         ? `<div style="position:relative;padding-bottom:56.25%;height:0;"><iframe src="https://www.youtube.com/embed/${url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop()}?autoplay=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" frameborder="0" allowfullscreen></iframe></div>`
         : `<video controls autoplay style="width:100%; border-radius:4px;"><source src="${url}" type="video/mp4"></video>`;
-    
     document.getElementById('project-visual-content').innerHTML = content;
-
-    // Animación de entrada: la ficha técnica sube (Efecto Index 15)
     setTimeout(() => {
         window.scrollTo({top: $('#portfolio-section').offset().top - 70, behavior: 'smooth'});
-        gsap.fromTo("#project-single-view", 
-            { opacity: 0, y: 100, display: "block" }, 
-            { duration: 0.8, opacity: 1, y: 0, ease: "power3.out" }
-        );
+        gsap.fromTo("#project-single-view", { opacity: 0, y: 100, display: "block" }, { duration: 0.8, opacity: 1, y: 0, ease: "power3.out" });
     }, 450);
 };
 
-/* PEGA ESTA FUNCIÓN */
 window.closeProject = function() {
-    // Ficha cae y desaparece (estilo Index 15)
-    gsap.to("#project-single-view", { 
-        duration: 0.5, 
-        opacity: 0, 
-        y: 100, 
-        display: "none", 
-        ease: "power2.in",
+    gsap.to("#project-single-view", { duration: 0.5, opacity: 0, y: 100, display: "none", ease: "power2.in",
         onComplete: () => {
             document.getElementById('project-visual-content').innerHTML = ""; 
-            // Grid regresa subiendo y se reajusta para no encimarse
-            gsap.fromTo("#portfolio-grid-container", 
-                { opacity: 0, y: 50, display: "block" }, 
-                { 
-                    duration: 0.6, 
-                    opacity: 1, 
-                    y: 0, 
-                    ease: "power3.out",
-                    onComplete: () => {
-                        $('#posts').isotope('layout'); // Reajuste total de cuadros
-                    }
-                }
-            );
+            gsap.fromTo("#portfolio-grid-container", { opacity: 0, y: 50, display: "block" }, { duration: 0.6, opacity: 1, y: 0, ease: "power3.out",
+                onComplete: () => { $('#posts').isotope('layout'); }
+            });
         }
     });
 };
