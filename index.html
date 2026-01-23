@@ -243,49 +243,48 @@ input:-webkit-autofill:focus {
     text-transform: uppercase;
 }
 
-//* --- NUEVO BOTÓN DE CIERRE (X) CORREGIDO --- */
-/* --- BOTÓN DE CIERRE (X) TAMAÑO REFINADO --- */
+/* --- BOTÓN DE CIERRE (X) FINAL Y REFINADO --- */
 .close-v1 { 
-    display: inline-flex; 
+    display: inline-flex !important; /* Forzamos que los elementos estén juntos */
     align-items: center; 
-    justify-content: flex-end; /* Esto asegura que se alineen a la derecha */
+    justify-content: flex-end; 
     text-decoration: none !important; 
     transition: all 0.3s ease; 
     cursor: pointer !important;
-    width: auto; /* Evita que ocupe toda la pantalla */
-    float: right; /* Lo mantiene pegado a la derecha */
+    width: auto !important; /* Evitamos que ocupe toda la pantalla */
+    float: right; /* Lo pegamos a la derecha */
 }
 
-/* El texto: lo bajamos a 11px para que sea sutil */
+/* Texto: Más pequeño (10px) y elegante */
 .close-v1 .icon-text { 
     font-family: 'Montserrat', sans-serif !important; 
-    font-size: 11px; 
-    margin-right: 15px; 
+    font-size: 10px; 
+    margin-right: 12px; /* Espacio justo con el círculo */
     color: #ffffff !important; 
     text-transform: uppercase; 
     font-weight: 700; 
     letter-spacing: 2px;
 }
 
-/* El círculo: bajamos de 70px a 55px */
+/* Círculo: Bajamos de 55px a 45px (el tamaño ideal) */
 .close-circle { 
-    width: 55px; height: 55px; 
-    border: 2px solid rgba(255,255,255,0.4); 
+    width: 45px; height: 45px; 
+    border: 1px solid rgba(255,255,255,0.4); 
     border-radius: 50%; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    font-size: 30px; /* La X más pequeña y elegante */
+    font-size: 24px; /* La X también más pequeña */
     color: #ffffff; 
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    padding-bottom: 5px; 
+    padding-bottom: 4px; 
 }
 
-/* El zoom: ahora es un poco más discreto */
+/* Zoom: Efecto sutil al pasar el mouse */
 .close-v1:hover .close-circle { 
     background: #ffffff !important; 
     color: #000000 !important; 
-    transform: scale(1.15); /* Zoom un poco más pequeño */
+    transform: scale(1.12); /* Zoom suave */
 }
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
