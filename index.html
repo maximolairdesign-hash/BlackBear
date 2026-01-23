@@ -103,62 +103,64 @@ dotlottie-player {
   display: inline-block;
   transform: rotate(90deg);
 }
-/* --- ESTILO UNIFICADO BLACKBEAR (PORTFOLIO & JOURNAL) --- */
+      /* --- MEJORA DE VISIBILIDAD Y ZOOM --- */
 
-/* --- ESTILO UNIFICADO: ZOOM ORIGINAL + TEXTO ALINEADO --- */
-
-/* 1. MANTENEMOS TU ANIMACIÓN ORIGINAL (Valores exactos que tenías) */
-.blog-item img, .portfolio-item img {
-  filter: brightness(0.75);
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease !important;
+/* Contenedor del post */
+#journal-grid .blog-item {
+  position: relative;
+  overflow: hidden; /* Corta la imagen cuando hace zoom */
+  background: #000; /* Fondo negro por si la imagen tarda en cargar */
 }
 
-.blog-item:hover img, .portfolio-item:hover img {
-  transform: scale(1.1) !important;
-  filter: brightness(0.9) !important;
+/* LA IMAGEN: Zoom suave al pasar el mouse */
+#journal-grid img {
+  filter: brightness(0.75); /* Un poco más oscura de base para que resalte el blanco */
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
 }
 
-/* 2. EL OVERLAY: Sombra para que el texto sea legible */
-.blog-item .overlay, .portfolio-item .overlay {
+#journal-grid .blog-item:hover img {
+  transform: scale(1.1); /* Efecto Lupa */
+  filter: brightness(0.9); /* Se aclara un poquito al interactuar */
+}
+
+/* EL GRADIENTE: Sombra negra abajo para que el texto se lea SIEMPRE */
+#journal-grid .overlay {
   background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 50%, transparent 100%) !important;
-  opacity: 1 !important;
+  opacity: 1 !important; /* Siempre visible */
+  transition: background 0.3s ease;
 }
 
-/* 3. EL TEXTO: Aquí arreglamos el alineado y el "pegado" */
-.portfolio-item-content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 30px !important; /* Espacio para que no esté pegado al borde */
-  text-align: left !important; /* Todo alineado a la izquierda */
-  z-index: 10;
+#journal-grid .blog-item:hover .overlay {
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 70%, transparent 100%) !important;
 }
 
-.portfolio-item-content h3 {
+/* EL TEXTO: Sombras y movimiento */
+#journal-grid .portfolio-item-content {
+  padding: 40px 30px !important; /* Más espacio interno */
+}
+
+#journal-grid .portfolio-item-content h3 {
   color: #ffffff !important;
-  text-shadow: 0 2px 15px rgba(0,0,0,1);
+  text-shadow: 0 2px 15px rgba(0,0,0,1), 0 0 5px rgba(0,0,0,0.5); /* Doble sombra para legibilidad total */
   font-weight: 800 !important;
   font-size: 1.6rem;
   margin-bottom: 8px;
-  text-transform: uppercase;
   transition: transform 0.3s ease;
 }
 
-.portfolio-item-content p, .post-meta {
+#journal-grid .post-meta {
   color: #ffffff !important;
   opacity: 0.9;
   text-shadow: 0 1px 8px rgba(0,0,0,1);
   font-weight: 600;
   letter-spacing: 1px;
-  text-transform: uppercase;
   transition: transform 0.3s ease;
 }
 
-/* 4. ANIMACIÓN DEL TEXTO (Tu efecto original de subir al pasar el mouse) */
-.blog-item:hover h3, .portfolio-item:hover h3,
-.blog-item:hover .post-meta, .portfolio-item:hover p {
-  transform: translateY(-5px) !important;
+/* Efecto de resalte: El texto sube ligeramente al pasar el mouse */
+#journal-grid .blog-item:hover h3, 
+#journal-grid .blog-item:hover .post-meta {
+  transform: translateY(-5px);
 }
      /* FIX DEFINITIVO: Texto blanco al escribir */
 .form-control, 
