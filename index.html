@@ -665,28 +665,33 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="row justify-content-between">
             
           <div class="col-md-6">
-  <form method="post" id="contactFormMain">
-    <div class="form-group row mb-0">
-      <div class="col-lg-6 form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="contact-name" required>
-      </div>
-      <div class="col-lg-6 form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="contact-email" required>
-      </div>
-      <div class="col-lg-12 form-group">
-        <label for="message">Write your message...</label>
-        <textarea id="contact-message" cols="30" rows="7" class="form-control" required></textarea>
-      </div>
+ <form method="post" id="contactFormMain">
+  <div class="form-group row mb-0">
+    <div class="col-lg-12 form-group">
+      <label>Name</label>
+      <input type="text" class="form-control" id="contact-name" required>
     </div>
-    <div class="form-group row">
-      <div class="col-md-12 d-flex align-items-center">
-        <input type="submit" class="btn btn-outline-pill btn-custom-light mr-3" value="Send Message" id="contactSubmitBtn">
-        <span id="contact-loader" style="display:none; color: white;">🚀 Sending...</span>
-      </div>
+    <div class="col-lg-6 form-group">
+      <label>Email (Optional*)</label>
+      <input type="email" class="form-control" id="contact-email">
     </div>
-  </form>
+    <div class="col-lg-6 form-group">
+      <label>Phone (Optional*)</label>
+      <input type="text" class="form-control" id="contact-phone">
+    </div>
+    <div class="col-lg-12 form-group">
+      <label>Write your message...</label>
+      <textarea id="contact-message" cols="30" rows="7" class="form-control" required></textarea>
+    </div>
+  </div>
+  <p style="font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 20px;">* Please provide at least an email or a phone number.</p>
+  <div class="form-group row">
+    <div class="col-md-12 d-flex align-items-center">
+      <input type="submit" class="btn btn-outline-pill btn-custom-light mr-3" value="Send Message" id="contactSubmitBtn">
+      <span id="contact-loader" style="display:none; color: white;">🚀 Sending...</span>
+    </div>
+  </div>
+</form>
 </div>
 
             <div class="col-md-4">
@@ -828,16 +833,26 @@ document.addEventListener('DOMContentLoaded', function() {
 document.getElementById('contactFormMain').addEventListener('submit', function(e) {
   e.preventDefault();
   
+  const email = document.getElementById('contact-email').value.trim();
+  const phone = document.getElementById('contact-phone').value.trim();
+  
+  // VALIDACIÓN: Al menos uno de los dos debe estar lleno
+  if (!email && !phone) {
+    alert("Please provide at least an email or a phone number so I can reach you.");
+    return;
+  }
+
   const btn = document.getElementById('contactSubmitBtn');
   const loader = document.getElementById('contact-loader');
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgZRd18dtb5DedW2hOeDpOiN48W1XvHqK5VXBbFLeMWyVWnIyopduyALrn68GVmkwo/exec"; 
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPOKE4AQa_YioNPWNkmqt2i1aYbblJB6QWTgHmacTapkku_wG8ZG-rwnO0q7z-TmqU/exec"; 
 
   btn.style.display = 'none';
   loader.style.display = 'inline-block';
 
   const data = new URLSearchParams();
   data.append('name', document.getElementById('contact-name').value);
-  data.append('email', document.getElementById('contact-email').value);
+  data.append('email', email);
+  data.append('phone', phone);
   data.append('message', document.getElementById('contact-message').value);
 
   fetch(SCRIPT_URL, {
@@ -846,7 +861,6 @@ document.getElementById('contactFormMain').addEventListener('submit', function(e
     body: data
   })
   .then(() => {
-    // MENSAJE DE ÉXITO ORIGINAL EN INGLÉS
     alert("Message received! We'll get back to you shortly.");
     document.getElementById('contactFormMain').reset();
     btn.style.display = 'inline-block';
