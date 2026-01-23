@@ -195,27 +195,50 @@ input:-webkit-autofill:focus {
   color: #ffffff !important;
   font-weight: 600;
 } 
-/* Animación del botón cerrar tipo Index 15 */
+/* PEGA ESTO */
+#project-single-view h2, 
+#project-single-view h3, 
+#project-single-view p, 
+#project-single-view span, 
+#project-single-view strong {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
 .close-v1 {
-    display: inline-block;
-    transition: all 0.3s ease;
-    cursor: pointer !important;
-}
-
-.close-v1:hover {
-    transform: scale(1.1);
-}
-
-.close-v1 span:last-child {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    text-decoration: none !important;
 }
 
-.close-v1:hover span:last-child {
-    background: #fff !important;
-    color: #000 !important;
+.icon-text {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 15px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.close-circle {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    display: flex; /* Para centrar la X */
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    line-height: 0;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    padding-bottom: 4px; /* Ajuste fino de centrado */
+}
+
+.close-v1:hover .close-circle {
+    background: #ffffff !important;
+    color: #000000 !important;
+    transform: scale(1.1);
 }
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
@@ -317,9 +340,9 @@ input:-webkit-autofill:focus {
       <div class="row justify-content-between">
         
         <div class="col-lg-12 text-right mb-5">
-          <a href="javascript:void(0)" onclick="closeProject()" class="close-v1" style="color: white; text-decoration: none; display: inline-block;">
-            <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px; margin-right: 15px; opacity: 0.5;">Back to Portfolio</span>
-            <span style="font-size: 30px; line-height: 1; vertical-align: middle; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; width: 45px; height: 45px; display: inline-flex; align-items: center; justify-content: center;">×</span>
+          <a href="javascript:void(0)" onclick="closeProject()" class="close-v1">
+            <span class="icon-text">Back to Portfolio</span>
+            <span class="close-circle">×</span>
           </a>
         </div>
         
@@ -871,8 +894,9 @@ window.openProject = function(id) {
     }, 450);
 };
 
+/* PEGA ESTA FUNCIÓN */
 window.closeProject = function() {
-    // La ficha técnica cae y desaparece (Animación exacta Index 15)
+    // Ficha cae y desaparece (estilo Index 15)
     gsap.to("#project-single-view", { 
         duration: 0.5, 
         opacity: 0, 
@@ -881,10 +905,18 @@ window.closeProject = function() {
         ease: "power2.in",
         onComplete: () => {
             document.getElementById('project-visual-content').innerHTML = ""; 
-            // El portafolio regresa subiendo
+            // Grid regresa subiendo y se reajusta para no encimarse
             gsap.fromTo("#portfolio-grid-container", 
                 { opacity: 0, y: 50, display: "block" }, 
-                { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" }
+                { 
+                    duration: 0.6, 
+                    opacity: 1, 
+                    y: 0, 
+                    ease: "power3.out",
+                    onComplete: () => {
+                        $('#posts').isotope('layout'); // Reajuste total de cuadros
+                    }
+                }
             );
         }
     });
