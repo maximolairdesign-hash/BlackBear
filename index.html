@@ -244,44 +244,48 @@ input:-webkit-autofill:focus {
 }
 
 //* --- NUEVO BOTÓN DE CIERRE (X) CORREGIDO --- */
+/* --- BOTÓN DE CIERRE (X) TAMAÑO REFINADO --- */
 .close-v1 { 
     display: inline-flex; 
     align-items: center; 
+    justify-content: flex-end; /* Esto asegura que se alineen a la derecha */
     text-decoration: none !important; 
     transition: all 0.3s ease; 
-    cursor: pointer !important; 
+    cursor: pointer !important;
+    width: auto; /* Evita que ocupe toda la pantalla */
+    float: right; /* Lo mantiene pegado a la derecha */
 }
 
-/* 1. CORRECCIÓN DE FUENTE */
+/* El texto: lo bajamos a 11px para que sea sutil */
 .close-v1 .icon-text { 
-    font-family: 'Montserrat', sans-serif !important; /* Usamos la fuente del sitio */
-    font-size: 13px; 
-    margin-right: 20px; 
+    font-family: 'Montserrat', sans-serif !important; 
+    font-size: 11px; 
+    margin-right: 15px; 
     color: #ffffff !important; 
     text-transform: uppercase; 
     font-weight: 700; 
     letter-spacing: 2px;
 }
 
-/* 2. CORRECCIÓN DE TAMAÑO */
+/* El círculo: bajamos de 70px a 55px */
 .close-circle { 
-    width: 70px; height: 70px; /* Círculo más grande */
-    border: 2px solid rgba(255,255,255,0.5); 
+    width: 55px; height: 55px; 
+    border: 2px solid rgba(255,255,255,0.4); 
     border-radius: 50%; 
     display: flex; 
     align-items: center; 
     justify-content: center; 
-    font-size: 45px; /* La X ahora es más grande */
+    font-size: 30px; /* La X más pequeña y elegante */
     color: #ffffff; 
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    padding-bottom: 7px; 
+    padding-bottom: 5px; 
 }
 
-/* 3. CORRECCIÓN DE ANIMACIÓN ZOOM */
+/* El zoom: ahora es un poco más discreto */
 .close-v1:hover .close-circle { 
     background: #ffffff !important; 
     color: #000000 !important; 
-    transform: scale(1.2); /* Esto hace el efecto de ZOOM */
+    transform: scale(1.15); /* Zoom un poco más pequeño */
 }
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
