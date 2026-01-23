@@ -195,82 +195,61 @@ input:-webkit-autofill:focus {
   color: #ffffff !important;
   font-weight: 600;
 } 
-/* --- ESTILO PROFESIONAL PORTAFOLIO --- */
-#posts .portfolio-item {
-  position: relative;
-  overflow: hidden !important;
-  background: #000;
-  display: block;
-}
+/* --- ESTILO FINAL: ZOOM Y TEXTO DINÁMICO --- */
+      #posts .portfolio-item {
+        position: relative;
+        overflow: hidden !important;
+        background: #000;
+        display: block;
+      }
 
-/* Efecto Lupa: La imagen crece y se oscurece al pasar el mouse */
-#posts .portfolio-item img {
-  filter: brightness(0.9);
-  transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1), filter 0.8s ease !important;
-}
+      /* Efecto Lupa: La imagen crece y se oscurece al pasar el mouse */
+      #posts .portfolio-item img {
+        filter: brightness(0.9);
+        transition: transform 0.8s cubic-bezier(0.2, 1, 0.2, 1), filter 0.8s ease !important;
+      }
 
-#posts .portfolio-item:hover img {
-  transform: scale(1.1); 
-  filter: brightness(0.4);
-}
+      #posts .portfolio-item:hover img {
+        transform: scale(1.1); 
+        filter: brightness(0.4);
+      }
 
-/* Texto que sube suavemente */
-#posts .portfolio-item-content {
-  padding: 30px !important;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  transition: transform 0.4s ease-out;
-  z-index: 2;
-}
+      /* Texto que sube cuando pones el mouse encima */
+      #posts .portfolio-item-content {
+        padding: 30px !important;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+        transition: transform 0.4s ease-out;
+        z-index: 2;
+      }
 
-#posts .portfolio-item:hover .portfolio-item-content {
-  transform: translateY(-15px);
-}
+      #posts .portfolio-item:hover .portfolio-item-content {
+        transform: translateY(-15px);
+      }
 
-#posts .portfolio-item-content h3 {
-  color: #ffffff !important;
-  text-shadow: 0 2px 15px rgba(0,0,0,1);
-  font-weight: 800 !important;
-}
+      #posts .portfolio-item-content h3 {
+        color: #ffffff !important;
+        text-shadow: 0 2px 15px rgba(0,0,0,1);
+        font-weight: 800 !important;
+        font-size: 1.4rem;
+      }
 
-#posts .portfolio-item img {
-  filter: brightness(0.8);
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease !important;
-}
-
-/* Efecto Lupa y Brillo */
-#posts .portfolio-item:hover img {
-  transform: scale(1.1); 
-  filter: brightness(0.5); /* Se oscurece más para resaltar el texto */
-}
-
-/* Gradiente de visibilidad */
-#posts .portfolio-item .overlay {
-  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 50%, transparent 100%) !important;
-  opacity: 1 !important; 
-  visibility: visible !important;
-}
-
-#posts .portfolio-item-content {
-  padding: 30px !important;
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  transition: transform 0.3s ease;
-  z-index: 2;
-}
-
-#posts .portfolio-item:hover .portfolio-item-content {
-  transform: translateY(-10px); /* El texto sube al hacer hover */
-}
-
-#posts .portfolio-item-content h3 {
-  color: #ffffff !important;
-  text-shadow: 0 2px 10px rgba(0,0,0,1);
-  font-weight: 800 !important;
-  margin: 0;
-}      
+      /* Estilo de la info lateral (Ficha Técnica) como en tu imagen */
+      .project-details h3 {
+        color: #666;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        margin-top: 20px;
+      }
+      .project-details strong {
+        color: white;
+        font-weight: 400;
+        font-size: 16px;
+        display: block;
+      }      
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
   </head>
@@ -363,59 +342,54 @@ input:-webkit-autofill:focus {
 
 
      <div class="unslate_co--section" id="portfolio-section">
-  <div class="container">
-    
-    <div id="project-single-view" style="display:none; opacity:0; padding-bottom: 60px;">
-      <div class="row justify-content-center">
-        <div class="col-lg-12 text-right mb-4">
-          <a href="javascript:void(0)" onclick="closeProject()" class="close-v1">
-            <span class="icon-close2" style="font-size: 30px; color: white;">×</span>
-          </a>
-        </div>
-        <div class="col-lg-8" id="project-video-content" style="min-height: 450px; background: #000; border-radius: 8px; overflow: hidden;"></div>
-        <div class="col-lg-4">
-          <div class="project-details pl-lg-4">
-            <h2 class="heading-h2" id="project-title" style="color: white; font-weight: 800; margin-bottom: 20px; font-size: 2rem;"></h2>
-            <div class="mb-5">
-              <h3 style="color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Project Description</h3>
-              <p id="project-desc" style="color: #ccc; line-height: 1.8; font-size: 14px;"></p>
+        <div class="container">
+          
+          <div id="project-single-view" style="display:none; opacity:0; padding-bottom: 60px;">
+            <div class="row">
+              <div class="col-12 text-right mb-2">
+                <a href="javascript:void(0)" onclick="closeProject()" style="font-size: 40px; color: white; text-decoration: none; line-height: 1;">&times;</a>
+              </div>
+              <div class="col-12 mb-4">
+                <h2 id="project-title" style="color: white; font-weight: 800; font-size: 3rem;"></h2>
+              </div>
             </div>
             <div class="row">
-              <div class="col-12 mb-3">
-                <span style="display:block; color:#555; font-size:10px; text-transform:uppercase; font-weight: 700;">Project Date</span>
-                <strong id="project-date" style="color:white; font-weight: 400;"></strong>
+              <div class="col-lg-8" id="project-video-content" style="min-height: 450px; background: #000; border-radius: 4px; overflow: hidden;"></div>
+              
+              <div class="col-lg-4">
+                <div class="project-details pl-lg-4">
+                  <h3>Project Description</h3>
+                  <p id="project-desc" style="color: #ccc; line-height: 1.8;"></p>
+                  
+                  <h3>Project Date</h3>
+                  <strong id="project-date"></strong>
+                  
+                  <h3>Role</h3>
+                  <strong id="project-role"></strong>
+                  
+                  <h3>Client</h3>
+                  <strong id="project-client"></strong>
+                </div>
               </div>
-              <div class="col-12 mb-3">
-                <span style="display:block; color:#555; font-size:10px; text-transform:uppercase; font-weight: 700;">Role / Category</span>
-                <strong id="project-role" style="color:white; font-weight: 400;"></strong>
+            </div>
+          </div>
+
+          <div id="portfolio-grid-container" class="portfolio-wrapper">
+            <div class="d-flex align-items-center mb-4 gsap-reveal">
+              <h2 class="mr-auto heading-h2">Portfolio</h2>
+            </div>
+            <div id="posts" class="row gutter-isotope-item">
               </div>
-              <div class="col-12">
-                <span style="display:block; color:#555; font-size:10px; text-transform:uppercase; font-weight: 700;">Client</span>
-                <strong id="project-client" style="color:white; font-weight: 400;"></strong>
+            <div class="row mt-5 gsap-reveal">
+              <div class="col-12 text-center">
+                <a href="categories.html" class="btn btn-outline-pill btn-custom-light" style="padding: 15px 45px; text-transform: uppercase; font-weight: bold; letter-spacing: 2px;">
+                  Video Categories
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div id="portfolio-grid-container" class="portfolio-wrapper">
-      <div class="d-flex align-items-center mb-4 gsap-reveal">
-        <h2 class="mr-auto heading-h2">Portfolio</h2>
-      </div>
-      <div id="posts" class="row gutter-isotope-item">
-        </div>
-      <div class="row mt-5 gsap-reveal">
-        <div class="col-12 text-center">
-          <a href="categories.html" class="btn btn-outline-pill btn-custom-light" style="padding: 15px 45px; text-transform: uppercase; font-weight: bold; letter-spacing: 2px;">
-            Video Categories
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 
       <div class="unslate_co--section">
@@ -888,70 +862,78 @@ document.addEventListener('DOMContentLoaded', function() {
   const EXCEL_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9yghObfHQDI1wcM1g4gn2uMOSSd_w-qYkS1TFHAJXsnJDA-zi8A_4X9ymMGhtreM7f0sY8JRGqnBE/pub?gid=0&single=true&output=csv";
   let portfolioData = [];
 
-  // Leer Excel
+  // 1. Carga inteligente desde tu Excel
   Papa.parse(EXCEL_URL, {
     download: true, header: true,
     complete: function(results) {
       portfolioData = results.data.filter(p => p.ID && p.VideoURL);
-      renderGrid(portfolioData);
+      const $grid = $('#posts');
+      const shuffled = portfolioData.sort(() => Math.random() - 0.5).slice(0, 9);
+      
+      // Moldes del Index 15: el 2, 6 y 7 son altos
+      const molds = ["", "item-portrait", "", "", "", "item-portrait", "item-portrait", "", ""];
+
+      let html = "";
+      shuffled.forEach((item, i) => {
+        html += `
+          <div class="item col-sm-6 col-md-6 col-lg-4 isotope-mb-2 ${molds[i]} gsap-reveal-img">
+            <a href="javascript:void(0)" onclick="openProject('${item.ID}')" class="portfolio-item isotope-item">
+              <div class="overlay">
+                <span class="wrap-icon icon-play_circle_filled"></span>
+                <div class="portfolio-item-content">
+                  <h3>${item.Titulo}</h3>
+                  <p>${item.Category}</p>
+                </div>
+              </div>
+              <img src="${item.ThumbnailURL}" class="lazyload img-fluid" style="width:100%; height:100%; object-fit:cover;">
+            </a>
+          </div>`;
+      });
+      $grid.html(html);
+      
+      // Activa el acomodo Masonry e Isotope
+      $grid.imagesLoaded().progress(() => {
+        $grid.isotope('reloadItems').isotope({ itemSelector: '.item', layoutMode: 'masonry' });
+      });
     }
   });
 
-  function renderGrid(data) {
-    const $grid = $('#posts');
-    const shuffled = data.sort(() => Math.random() - 0.5).slice(0, 9);
-    const molds = ["", "item-portrait", "", "", "", "item-portrait", "item-portrait", "", ""];
-
-    let html = "";
-    shuffled.forEach((item, i) => {
-      html += `
-        <div class="item col-sm-6 col-md-6 col-lg-4 isotope-mb-2 ${molds[i]} gsap-reveal-img">
-          <a href="javascript:void(0)" onclick="openProject('${item.ID}')" class="portfolio-item isotope-item">
-            <div class="overlay">
-              <span class="wrap-icon icon-play_circle_filled"></span>
-              <div class="portfolio-item-content">
-                <h3>${item.Titulo}</h3>
-                <p>${item.Category}</p>
-              </div>
-            </div>
-            <img src="${item.ThumbnailURL}" class="lazyload img-fluid" style="width:100%; height:100%; object-fit:cover;">
-          </a>
-        </div>`;
-    });
-    $grid.html(html);
-    $grid.imagesLoaded().progress(() => { 
-      $grid.isotope('reloadItems').isotope({ itemSelector: '.item', layoutMode: 'masonry' }); 
-    });
-  }
-
+  // 2. Función para ABRIR (Animación Modern Building)
   window.openProject = function(id) {
     const p = portfolioData.find(x => x.ID == id);
     if (!p) return;
-    gsap.to("#portfolio-grid-container", {duration: 0.4, opacity: 0, display: "none", onComplete: () => {
-      $('#project-title').text(p.Titulo);
-      $('#project-desc').text(p.Descripcion);
-      $('#project-date').text(p.Fecha || '2025');
-      $('#project-role').text(p.Category);
-      $('#project-client').text(p.Cliente);
 
+    // Desvanece el grid principal
+    gsap.to("#portfolio-grid-container", {duration: 0.4, opacity: 0, y: -20, display: "none", onComplete: () => {
+      // Llena la ficha técnica con tus datos de Excel
+      document.getElementById('project-title').innerText = p.Titulo;
+      document.getElementById('project-desc').innerText = p.Descripcion;
+      document.getElementById('project-date').innerText = p.Fecha || '2025';
+      document.getElementById('project-role').innerText = p.Category;
+      document.getElementById('project-client').innerText = p.Cliente;
+
+      // Carga de Video (YouTube o MP4)
       let embed = "";
-      if(p.VideoURL.includes('youtube') || p.VideoURL.includes('youtu.be')) {
+      if(p.VideoURL.includes('youtube.com') || p.VideoURL.includes('youtu.be')) {
         let vId = p.VideoURL.includes('v=') ? p.VideoURL.split('v=')[1].split('&')[0] : p.VideoURL.split('/').pop();
         embed = `<iframe width="100%" height="450" src="https://www.youtube.com/embed/${vId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
       } else {
         embed = `<video controls autoplay style="width:100%; max-height:450px;"><source src="${p.VideoURL}" type="video/mp4"></video>`;
       }
-      $('#project-video-content').html(embed);
+      document.getElementById('project-video-content').innerHTML = embed;
+
+      // Muestra la ficha técnica con entrada suave
       gsap.fromTo("#project-single-view", {opacity: 0, y: 30}, {duration: 0.5, opacity: 1, y: 0, display: "block"});
       window.scrollTo({top: $('#portfolio-section').offset().top - 50, behavior: 'smooth'});
     }});
   };
 
+  // 3. Función para CERRAR
   window.closeProject = function() {
-    gsap.to("#project-single-view", {duration: 0.4, opacity: 0, display: "none", onComplete: () => {
-      $('#project-video-content').empty();
+    gsap.to("#project-single-view", {duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
+      document.getElementById('project-video-content').innerHTML = ""; // Detiene el video
       gsap.to("#portfolio-grid-container", {duration: 0.4, opacity: 1, display: "block"});
-      $('#posts').isotope('layout');
+      $('#posts').isotope('layout'); // Reajusta el portafolio
     }});
   };
 });
