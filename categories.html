@@ -41,6 +41,45 @@
       #project-single-view { color: #ffffff !important; display: none; }
       .meta-header { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); font-weight: 700; }
       .meta-value { display: block; font-size: 15px; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; }
+   /* --- BOTÓN DE CIERRE REFINADO (X) --- */
+.close-v1 { 
+    display: inline-flex !important; 
+    align-items: center; 
+    justify-content: flex-end; 
+    text-decoration: none !important; 
+    transition: all 0.3s ease; 
+    cursor: pointer !important;
+    width: auto !important; 
+    float: right; 
+}
+
+.close-v1 .icon-text { 
+    font-size: 10px; 
+    margin-right: 12px; 
+    color: #ffffff !important; 
+    text-transform: uppercase; 
+    font-weight: 700; 
+    letter-spacing: 2px;
+}
+
+.close-circle { 
+    width: 45px; height: 45px; 
+    border: 1px solid rgba(255,255,255,0.4); 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 24px; 
+    color: #ffffff; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding-bottom: 4px; 
+}
+
+.close-v1:hover .close-circle { 
+    background: #ffffff !important; 
+    color: #000000 !important; 
+    transform: scale(1.12); 
+}
     </style>
   </head>
   <body>
@@ -95,9 +134,9 @@
             <div class="row">
               <div class="col-12 text-right mb-4">
                 <a href="javascript:void(0)" onclick="closeCategory()" class="close-v1">
-                  <span class="icon-text">Back to Categories</span>
-                  <span class="close-circle">×</span>
-                </a>
+    <span class="icon-text">Back to Categories</span>
+    <span class="close-circle">×</span>
+</a>
               </div>
             </div>
             <div class="text-center mb-5">
@@ -112,9 +151,9 @@
             <div class="row">
               <div class="col-12 text-right mb-5">
                 <a href="javascript:void(0)" onclick="closeProject()" class="close-v1">
-                  <span class="icon-text">Back to Category Grid</span>
-                  <span class="close-circle">×</span>
-                </a>
+    <span class="icon-text">Back to Category Grid</span>
+    <span class="close-circle">×</span>
+</a>
               </div>
             </div>
             <div class="row align-items-center">
