@@ -740,31 +740,30 @@ input:-webkit-autofill:focus {
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const URL_EXCEL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSBApKJcrHq_sBa2EA4YDyj4GeFrGJ-uH6HzYjGaMbw_tQAIg1Ll6h_w42HbyC2Wuz5uVIDAG0nvbo0/pub?gid=0&single=true&output=csv";
   const $grid = document.getElementById('journal-grid');
+
+  // Estado de carga inicial
+  $grid.innerHTML = `
+    <div id="journal-loader" class="col-12 text-center" style="padding: 100px 0; transition: opacity 0.5s ease;">
+      <h2 style="color: white; font-weight: 800; font-size: 3rem;">Cargando...</h2>
+    </div>`;
 
   Papa.parse(URL_EXCEL, {
     download: true,
     header: true,
     complete: function(results) {
       let posts = results.data.filter(p => p.ID && p.Titulo);
-      
-      // 1. MEZCLAR ALEATORIAMENTE
       posts.sort(() => Math.random() - 0.5);
-
-      // 2. TOMAR SOLO LOS PRIMEROS 5
       const selectedPosts = posts.slice(0, 5);
 
       let htmlFinal = "";
       selectedPosts.forEach((post, index) => {
-        // El primer post (index 0) es el grande, los demás pequeños
         let colSize = (index === 0) ? "col-lg-8" : "col-lg-4";
-        
         htmlFinal += `
-          <div class="col-sm-6 col-md-6 ${colSize} blog-post-entry" data-aos="fade-up" data-aos-delay="${index * 100}">
+          <div class="col-sm-6 col-md-6 ${colSize} blog-post-entry" style="opacity: 0; transform: translateY(20px); transition: all 0.6s ease;">
             <a href="blog-single.html?id=${post.ID}" class="grid-item blog-item w-100 h-100">
               <div class="overlay">
                 <div class="portfolio-item-content">
@@ -772,12 +771,26 @@ document.addEventListener('DOMContentLoaded', function() {
                   <p class="post-meta">By ${post.Autor} <span class="small">&bullet;</span> ${post.TiempoLectura || '5 min read'}</p>
                 </div>
               </div>
-              <img src="${post.ImagenPortada}" class="lazyload img-fluid" alt="${post.Titulo}" style="height: 100%; width: 100%; object-fit: cover;" />
+              <img src="${post.ImagenPortada}" class="img-fluid" alt="${post.Titulo}" style="height: 100%; width: 100%; object-fit: cover;" />
             </a>
           </div>`;
       });
 
-      $grid.innerHTML = htmlFinal;
+      const tempDiv = document.createElement('div');
+      tempDiv.className = "row gutter-v4 align-items-stretch";
+      tempDiv.innerHTML = htmlFinal;
+
+      // Esta parte es la que detecta que las fotos ya bajaron de internet
+      imagesLoaded(tempDiv, function() {
+        $grid.innerHTML = tempDiv.innerHTML;
+        const newItems = $grid.querySelectorAll('.blog-post-entry');
+        newItems.forEach((item, i) => {
+          setTimeout(() => {
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+          }, i * 150);
+        });
+      });
     }
   });
 });
