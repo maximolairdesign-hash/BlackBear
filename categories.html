@@ -15,90 +15,59 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* 1. CONFIGURACIÓN DE PANTALLA COMPLETA */
-      html, body { height: 100%; margin: 0; }
+      /* --- 1. AJUSTES DE ESTRUCTURA --- */
+      html, body { 
+        height: 100%; 
+        margin: 0; 
+        padding: 0;
+      }
 
-      .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
-      .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-
-      /* 2. LA COLUMNA ELÁSTICA */
+      /* Esto hace que la página sea una columna que se estira */
       .unslate_co--site-inner { 
-          display: flex; 
-          flex-direction: column; 
-          min-height: 100vh; 
+          display: flex !important; 
+          flex-direction: column !important; 
+          min-height: 100vh !important; 
           background-color: transparent !important; 
           color: white; 
       }
 
-      /* 3. EL EMPUJE HACIA ABAJO */
+      /* Esta sección ocupa todo el espacio sobrante y empuja al footer */
+      #main-content-section {
+          flex: 1 0 auto !important;
+          padding-top: 150px;
+          padding-bottom: 50px; /* Espacio antes del footer */
+      }
+
+      /* El wrap del footer se queda siempre abajo */
       #dynamic-footer-wrap { 
-          opacity: 0; 
-          margin-top: auto !important; /* Esto manda el footer al suelo */
+          flex-shrink: 0 !important;
           width: 100%;
+          opacity: 0; /* Para tu animación GSAP */
+          background-color: #191919;
       }
 
       .unslate_co--footer {
           background-color: #191919 !important;
           padding: 60px 0;
-          width: 100%;
+          position: relative !important; /* Asegura que no se encime */
+          display: block !important;
       }
 
-      /* BOTÓN DE CIERRE (X) */
-      .close-v1 { 
-          display: inline-flex !important; 
-          align-items: center; 
-          justify-content: flex-end; 
-          text-decoration: none !important; 
-          transition: all 0.3s ease; 
-          cursor: pointer !important;
-          float: right; 
-          opacity: 0; 
-      }
-      .close-v1 .icon-text { 
-          font-family: 'Montserrat', sans-serif !important; 
-          font-size: 10px; 
-          margin-right: 12px; 
-          color: #ffffff !important; 
-          text-transform: uppercase; 
-          font-weight: 700; 
-          letter-spacing: 2px;
-      }
-      .close-circle { 
-          width: 45px; height: 45px; 
-          border: 1px solid rgba(255,255,255,0.4); 
-          border-radius: 50%; 
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-          font-size: 24px; 
-          color: #ffffff; 
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          padding-bottom: 4px; 
-      }
-      .close-v1:hover .close-circle { 
-          background: #ffffff !important; 
-          color: #000000 !important; 
-          transform: scale(1.12); 
-      }
+      /* --- 2. OTROS ESTILOS --- */
+      .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
+      .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
 
-      /* CATEGORÍAS */
-      .category-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 60px 20px;
-        border-radius: 4px;
-        text-align: center;
-        transition: 0.4s all ease;
-        cursor: pointer;
-        height: 100%;
-        display: flex; align-items: center; justify-content: center;
-      }
+      .close-v1 { display: inline-flex !important; align-items: center; justify-content: flex-end; text-decoration: none !important; transition: all 0.3s ease; cursor: pointer !important; float: right; opacity: 0; }
+      .close-v1 .icon-text { font-family: 'Montserrat', sans-serif !important; font-size: 10px; margin-right: 12px; color: #ffffff !important; text-transform: uppercase; font-weight: 700; letter-spacing: 2px; }
+      .close-circle { width: 45px; height: 45px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #ffffff; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); padding-bottom: 4px; }
+      .close-v1:hover .close-circle { background: #ffffff !important; color: #000000 !important; transform: scale(1.12); }
+
+      .category-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); padding: 60px 20px; border-radius: 4px; text-align: center; transition: 0.4s all ease; cursor: pointer; height: 100%; display: flex; align-items: center; justify-content: center; }
       .category-card h3 { font-weight: 800; letter-spacing: 4px; margin: 0; font-size: 1.2rem; color: #fff; text-transform: uppercase; }
       .category-card:hover { background: #ffffff; transform: translateY(-10px); }
       .category-card:hover h3 { color: #000 !important; }
       .wavy-divider { display: block; margin: 20px auto; width: 70px; filter: brightness(0) invert(1); }
 
-      /* SINGLE VIEW METADATA */
       #project-single-view { display: none; }
       .meta-item { margin-bottom: 30px; opacity: 0; }
       .meta-header { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #ffffff !important; opacity: 0.6; font-weight: 700; margin-bottom: 5px; }
@@ -126,8 +95,8 @@
                 </ul>
               </div>
               <div class="site-logo pos-absolute">
-                <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: inline-block; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 40px; width: auto; vertical-align: middle;">
+                <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: inline-block; border-radius: 5px;">
+                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 40px;">
                 </a>
               </div>
               <div class="col-md-5 text-right text-lg-left">
@@ -142,7 +111,7 @@
           </div>
         </nav>
 
-        <div class="container" style="padding-top: 150px; flex: 1;">
+        <div id="main-content-section" class="container">
           
           <div id="selection-view">
             <div class="text-center mb-5">
@@ -166,7 +135,7 @@
               <h1 id="current-category-title" style="font-weight: 800; letter-spacing: 3px; text-transform: uppercase;"></h1>
               <img src="images/divider.png" class="wavy-divider" alt="divider">
             </div>
-            <div id="filtered-posts" class="row gutter-isotope-item"></div>
+            <div id="filtered-posts" class="row"></div>
           </div>
 
           <div id="project-single-view">
@@ -188,9 +157,7 @@
             </div>
           </div>
 
-        </div>
-
-        <div id="dynamic-footer-wrap">
+        </div> <div id="dynamic-footer-wrap">
           <div class="text-center mt-5 mb-5">
             <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
           </div>
@@ -211,10 +178,7 @@
           </footer>
         </div>
 
-      </div>
-    </div>
-
-    <script src="js/scripts-dist.js"></script>
+      </div> </div> <script src="js/scripts-dist.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -237,12 +201,12 @@
         const categories = [...new Set(allItems.map(item => item.Category || 'Video'))];
         let html = "";
         categories.forEach((cat, i) => {
-          html += `<div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="${i*100}">
+          html += `<div class="col-md-4 mb-4">
                     <div class="category-card" onclick="openCategory('${cat}')"><h3>${cat}</h3></div>
                   </div>`;
         });
         document.getElementById('categories-container').innerHTML = html;
-        gsap.to("#dynamic-footer-wrap", { duration: 1, opacity: 1, delay: 0.8, ease: "power2.out" });
+        gsap.to("#dynamic-footer-wrap", { duration: 1, opacity: 1, delay: 0.8 });
       }
 
       function openCategory(cat) {
@@ -250,7 +214,7 @@
         const filtered = allItems.filter(item => item.Category === cat);
         let html = "";
         filtered.forEach(item => {
-          html += `<div class="col-sm-6 col-md-6 col-lg-4 mb-4">
+          html += `<div class="col-sm-6 col-md-4 mb-4">
                     <a href="javascript:void(0)" onclick="openProject('${item.ID}')" class="portfolio-item">
                       <div class="overlay"><span class="wrap-icon icon-play_circle_filled"></span><div class="portfolio-item-content"><h3>${item.Titulo}</h3></div></div>
                       <img src="${item.ThumbnailURL}" class="img-fluid" style="width:100%; height:250px; object-fit:cover;">
@@ -259,17 +223,17 @@
         });
         document.getElementById('filtered-posts').innerHTML = html;
         
-        gsap.to("#selection-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
-          gsap.set("#grid-view", { display: "block", opacity: 0, y: 30 });
-          gsap.to("#grid-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
-          gsap.fromTo("#btn-back-cat", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, delay: 0.3 });
+        gsap.to("#selection-view", { duration: 0.4, opacity: 0, display: "none", onComplete: () => {
+          gsap.set("#grid-view", { display: "block", opacity: 0 });
+          gsap.to("#grid-view", { duration: 0.6, opacity: 1 });
+          gsap.fromTo("#btn-back-cat", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0 });
         }});
       }
 
       function closeCategory() {
-        gsap.to("#grid-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
-          gsap.set("#selection-view", { display: "block", opacity: 0, y: 30 });
-          gsap.to("#selection-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
+        gsap.to("#grid-view", { duration: 0.4, opacity: 0, display: "none", onComplete: () => {
+          gsap.set("#selection-view", { display: "block", opacity: 0 });
+          gsap.to("#selection-view", { duration: 0.6, opacity: 1 });
         }});
       }
 
@@ -287,20 +251,20 @@
         
         document.getElementById('project-visual-content').innerHTML = content;
         
-        gsap.to("#grid-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
-          gsap.set("#project-single-view", { display: "block", opacity: 0, y: 30 });
-          gsap.to("#project-single-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
-          gsap.fromTo("#btn-back-grid", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, delay: 0.4 });
-          gsap.fromTo(".meta-item", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, stagger: 0.15, delay: 0.4 });
+        gsap.to("#grid-view", { duration: 0.4, opacity: 0, display: "none", onComplete: () => {
+          gsap.set("#project-single-view", { display: "block", opacity: 0 });
+          gsap.to("#project-single-view", { duration: 0.6, opacity: 1 });
+          gsap.fromTo("#btn-back-grid", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0 });
+          gsap.fromTo(".meta-item", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, stagger: 0.15 });
         }});
       }
 
       function closeProject() {
-        gsap.to("#project-single-view", { duration: 0.4, opacity: 0, y: 20, onComplete: () => {
+        gsap.to("#project-single-view", { duration: 0.4, opacity: 0, onComplete: () => {
           document.getElementById('project-single-view').style.display = "none";
           document.getElementById('project-visual-content').innerHTML = "";
-          gsap.set("#grid-view", { display: "block", opacity: 0, y: 30 });
-          gsap.to("#grid-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
+          gsap.set("#grid-view", { display: "block", opacity: 0 });
+          gsap.to("#grid-view", { duration: 0.6, opacity: 1 });
         }});
       }
     </script>
