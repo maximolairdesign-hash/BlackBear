@@ -397,7 +397,28 @@ input:-webkit-autofill:focus {
 /* 4. Aseguramos que el degradado ayude a la lectura */
 #journal-grid .overlay {
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%) !important;
-}      
+} 
+      /* Animación suave para el botón de categorías */
+.btn-fade-smooth {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: elegantFade 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  animation-delay: 0.5s;
+  transition: all 0.4s ease !important;
+}
+
+@keyframes elegantFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-fade-smooth:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+}
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -537,12 +558,12 @@ input:-webkit-autofill:focus {
   </div>
 
 <div class="row mt-5">
-    <div class="col-12 d-flex justify-content-center gsap-reveal" data-aos="fade-up">
-      <a href="categories.html" class="btn btn-outline-pill btn-custom-light" style="padding: 15px 40px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: inline-block;">
+    <div class="col-12 d-flex justify-content-center gsap-reveal"> 
+      <a href="categories.html" class="btn btn-outline-pill btn-custom-light btn-fade-smooth" style="padding: 15px 40px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; display: inline-block;">
         Video Category
       </a>
     </div>
-  </div>
+</div>
   </div>
   </div>
 </div>
@@ -985,8 +1006,10 @@ document.addEventListener('DOMContentLoaded', function() {
           // MEZCLAR EL PORTAFOLIO ALEATORIAMENTE
 window.portfolioItems.sort(() => Math.random() - 0.5);
             if(window.portfolioItems.length > 0) {
-                renderPortfolioGrid(window.portfolioItems);
-            } else {
+    // Tomamos solo los primeros 9 proyectos después de mezclarlos
+    const limitedItems = window.portfolioItems.slice(0, 9);
+    renderPortfolioGrid(limitedItems);
+} else {
                 document.getElementById('posts').innerHTML = '<div class="col-12 text-center"><p style="color:red;">No se encontraron proyectos en el Excel.</p></div>';
             }
         }
