@@ -287,32 +287,39 @@ input:-webkit-autofill:focus {
     color: #000000 !important; 
     transform: scale(1.12); /* Zoom suave */
 }
-      /* --- MEJORA DE TEXTOS EN PORTAFOLIO --- */
+      /* --- ESTILO PORTAFOLIO: TEXTO EN LA ESQUINA --- */
 
-/* Contenedor del texto: le damos más aire y lo pegamos abajo a la izquierda */
+/* 1. Contenedor: Lo pegamos al fondo y a la izquierda */
 #posts .portfolio-item-content {
-  padding: 40px 30px !important;
-  text-align: left;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  padding: 15px 20px !important; /* Ajusta este valor para pegarlo más o menos al borde */
+  text-align: left !important;
+  width: 100%;
 }
 
-/* El Título (ej: FERNAN ESTA TRISTE) */
+/* 2. El Título: Bold, tamaño moderado y separado */
 #posts .portfolio-item-content h3 {
-  font-weight: 900 !important;      /* Grosor máximo */
-  letter-spacing: 3px !important;   /* Espaciado entre letras */
-  text-transform: uppercase;        /* Todo en mayúsculas para más fuerza */
-  font-size: 1.5rem !important;     /* Tamaño equilibrado */
-  line-height: 1.2;
-  margin-bottom: 12px !important;   /* Separación con la categoría */
-  text-shadow: 0 2px 10px rgba(0,0,0,0.8); /* Sombra para que no se pierda nunca */
+  font-size: 1.15rem !important;    /* Tamaño más contenido, no tan grande */
+  font-weight: 800 !important;      /* Muy negrita */
+  letter-spacing: 1.5px !important; /* Separación elegante */
+  text-transform: uppercase;
+  margin: 0 !important;             /* Quitamos márgenes extra */
+  line-height: 1.1;
+  color: #ffffff !important;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8); /* Asegura que se lea sobre la imagen */
 }
 
-/* La Categoría (ej: REELS / VIDEO) */
+/* 3. La Categoría (Reels/Video): Pequeña, muy separada y pegada al título */
 #posts .portfolio-item-content p {
-  font-weight: 700 !important;      /* Negrita clara */
-  letter-spacing: 5px !important;   /* Mucho más separado para estilo elegante */
+  font-size: 0.65rem !important;    /* Pequeño pero legible */
+  font-weight: 700 !important;      /* Bold */
+  letter-spacing: 4px !important;   /* Mucha separación entre letras */
   text-transform: uppercase;
-  font-size: 0.7rem !important;     /* Más pequeño para crear jerarquía */
-  opacity: 0.8;                     /* Un toque de transparencia */
+  margin-top: 4px !important;       /* Espacio mínimo entre el título y la categoría */
+  margin-bottom: 0 !important;
+  opacity: 0.8;
   color: #ffffff !important;
 }
     </style>
