@@ -15,14 +15,13 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* --- 1. AJUSTES DE ESTRUCTURA --- */
+      /* --- 1. ESTRUCTURA BASE --- */
       html, body { 
         height: 100%; 
         margin: 0; 
-        padding: 0;
       }
 
-      /* Esto hace que la página sea una columna que se estira */
+      /* La página es una columna elástica */
       .unslate_co--site-inner { 
           display: flex !important; 
           flex-direction: column !important; 
@@ -31,29 +30,36 @@
           color: white; 
       }
 
-      /* Esta sección ocupa todo el espacio sobrante y empuja al footer */
-      #main-content-section {
+      /* Esta zona (videos) ocupa todo el espacio y empuja al footer al suelo */
+      #main-content-area {
           flex: 1 0 auto !important;
           padding-top: 150px;
-          padding-bottom: 50px; /* Espacio antes del footer */
+          padding-bottom: 80px; /* Espacio para que el botón no toque el footer */
       }
 
-      /* El wrap del footer se queda siempre abajo */
+      /* El botón de HOME ahora vive aquí, sobre el fondo de video */
+      .home-button-container {
+          text-align: center;
+          margin-top: 60px;
+          margin-bottom: 20px;
+      }
+
+      /* --- 2. EL FOOTER ORIGINAL (SOLO ZONA GRIS) --- */
       #dynamic-footer-wrap { 
-          flex-shrink: 0 !important;
           width: 100%;
-          opacity: 0; /* Para tu animación GSAP */
-          background-color: #191919;
+          opacity: 0; /* Para el efecto GSAP */
+          flex-shrink: 0 !important;
       }
 
       .unslate_co--footer {
           background-color: #191919 !important;
           padding: 60px 0;
-          position: relative !important; /* Asegura que no se encime */
           display: block !important;
+          position: relative !important;
+          z-index: 100;
       }
 
-      /* --- 2. OTROS ESTILOS --- */
+      /* --- 3. OTROS ESTILOS --- */
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
 
@@ -95,8 +101,8 @@
                 </ul>
               </div>
               <div class="site-logo pos-absolute">
-                <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: inline-block; border-radius: 5px;">
-                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 40px;">
+                <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: inline-block; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 40px; width: auto; vertical-align: middle;">
                 </a>
               </div>
               <div class="col-md-5 text-right text-lg-left">
@@ -111,7 +117,7 @@
           </div>
         </nav>
 
-        <div id="main-content-section" class="container">
+        <div id="main-content-area" class="container">
           
           <div id="selection-view">
             <div class="text-center mb-5">
@@ -135,7 +141,7 @@
               <h1 id="current-category-title" style="font-weight: 800; letter-spacing: 3px; text-transform: uppercase;"></h1>
               <img src="images/divider.png" class="wavy-divider" alt="divider">
             </div>
-            <div id="filtered-posts" class="row"></div>
+            <div id="filtered-posts" class="row gutter-isotope-item"></div>
           </div>
 
           <div id="project-single-view">
@@ -157,11 +163,11 @@
             </div>
           </div>
 
-        </div> <div id="dynamic-footer-wrap">
-          <div class="text-center mt-5 mb-5">
+          <div class="home-button-container">
             <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
           </div>
 
+        </div> <div id="dynamic-footer-wrap">
           <footer class="unslate_co--footer unslate_co--section">
             <div class="container text-center">
               <div class="footer-site-logo">
@@ -178,7 +184,10 @@
           </footer>
         </div>
 
-      </div> </div> <script src="js/scripts-dist.js"></script>
+      </div>
+    </div>
+
+    <script src="js/scripts-dist.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -206,7 +215,7 @@
                   </div>`;
         });
         document.getElementById('categories-container').innerHTML = html;
-        gsap.to("#dynamic-footer-wrap", { duration: 1, opacity: 1, delay: 0.8 });
+        gsap.to("#dynamic-footer-wrap", { duration: 1, opacity: 1, delay: 0.8, ease: "power2.out" });
       }
 
       function openCategory(cat) {
