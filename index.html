@@ -744,11 +744,14 @@ input:-webkit-autofill:focus {
 document.addEventListener('DOMContentLoaded', function() {
   const URL_EXCEL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSBApKJcrHq_sBa2EA4YDyj4GeFrGJ-uH6HzYjGaMbw_tQAIg1Ll6h_w42HbyC2Wuz5uVIDAG0nvbo0/pub?gid=0&single=true&output=csv";
   const $grid = document.getElementById('journal-grid');
+  const $scrollIcon = document.querySelector('.swipe-lottie-container'); // Seleccionamos el icono de scroll
 
-  // Estado de carga inicial
+  // 1. OCULTAMOS EL SCROLL E INICIAMOS CARGA
+  if ($scrollIcon) $scrollIcon.style.display = 'none';
+  
   $grid.innerHTML = `
-    <div id="journal-loader" class="col-12 text-center" style="padding: 100px 0; transition: opacity 0.5s ease;">
-      <h2 style="color: white; font-weight: 800; font-size: 3rem;">Cargando...</h2>
+    <div id="journal-loader" class="col-12 text-center" style="padding: 150px 0;">
+      <h2 style="color: white; font-weight: 800; font-size: 2.5rem; letter-spacing: 5px; text-transform: uppercase; opacity: 0.5;">Cargando Journal...</h2>
     </div>`;
 
   Papa.parse(URL_EXCEL, {
@@ -762,8 +765,9 @@ document.addEventListener('DOMContentLoaded', function() {
       let htmlFinal = "";
       selectedPosts.forEach((post, index) => {
         let colSize = (index === 0) ? "col-lg-8" : "col-lg-4";
+        // Importante: los items nacen con OPACITY 0
         htmlFinal += `
-          <div class="col-sm-6 col-md-6 ${colSize} blog-post-entry" style="opacity: 0; transform: translateY(20px); transition: all 0.6s ease;">
+          <div class="col-sm-6 col-md-6 ${colSize} blog-post-entry" style="opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);">
             <a href="blog-single.html?id=${post.ID}" class="grid-item blog-item w-100 h-100">
               <div class="overlay">
                 <div class="portfolio-item-content">
@@ -780,15 +784,21 @@ document.addEventListener('DOMContentLoaded', function() {
       tempDiv.className = "row gutter-v4 align-items-stretch";
       tempDiv.innerHTML = htmlFinal;
 
-      // Esta parte es la que detecta que las fotos ya bajaron de internet
+      // ESPERAMOS A LAS IMÁGENES
       imagesLoaded(tempDiv, function() {
+        // 2. QUITAMOS LOADER Y MOSTRAMOS CONTENIDO
         $grid.innerHTML = tempDiv.innerHTML;
+        
+        // 3. VOLVEMOS A MOSTRAR EL SCROLL (YA NO ESTORBA)
+        if ($scrollIcon) $scrollIcon.style.display = 'block';
+
+        // 4. LANZAMOS LA ANIMACIÓN ESCALONADA
         const newItems = $grid.querySelectorAll('.blog-post-entry');
         newItems.forEach((item, i) => {
           setTimeout(() => {
             item.style.opacity = "1";
             item.style.transform = "translateY(0)";
-          }, i * 150);
+          }, i * 200); // 200ms de diferencia entre cada uno para que se note el efecto
         });
       });
     }
