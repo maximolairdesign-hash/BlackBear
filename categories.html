@@ -15,25 +15,35 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+      /* 1. CONFIGURACIÓN DE PANTALLA COMPLETA */
+      html, body { height: 100%; margin: 0; }
+
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-      /* Esto obliga a la página a medir el 100% de la pantalla */
-html, body { height: 100%; margin: 0; }
 
-.unslate_co--site-inner { 
-    display: flex; 
-    flex-direction: column; 
-    min-height: 100vh; /* Ocupa el alto de la pantalla */
-    background-color: transparent !important; 
-    color: white; 
-}
+      /* 2. LA COLUMNA ELÁSTICA */
+      .unslate_co--site-inner { 
+          display: flex; 
+          flex-direction: column; 
+          min-height: 100vh; 
+          background-color: transparent !important; 
+          color: white; 
+      }
 
-.unslate_co--footer {
-    background-color: #191919 !important;
-    margin-top: auto; /* ¡Esto es lo que empuja el footer al final! */
-    padding: 60px 0;
-}
-      /* BOTÓN DE CIERRE (X) - COPIADO LITERAMENTE DEL INDEX (27) */
+      /* 3. EL EMPUJE HACIA ABAJO */
+      #dynamic-footer-wrap { 
+          opacity: 0; 
+          margin-top: auto !important; /* Esto manda el footer al suelo */
+          width: 100%;
+      }
+
+      .unslate_co--footer {
+          background-color: #191919 !important;
+          padding: 60px 0;
+          width: 100%;
+      }
+
+      /* BOTÓN DE CIERRE (X) */
       .close-v1 { 
           display: inline-flex !important; 
           align-items: center; 
@@ -42,7 +52,7 @@ html, body { height: 100%; margin: 0; }
           transition: all 0.3s ease; 
           cursor: pointer !important;
           float: right; 
-          opacity: 0; /* Empieza oculto para animar con GSAP */
+          opacity: 0; 
       }
       .close-v1 .icon-text { 
           font-family: 'Montserrat', sans-serif !important; 
@@ -88,9 +98,6 @@ html, body { height: 100%; margin: 0; }
       .category-card:hover h3 { color: #000 !important; }
       .wavy-divider { display: block; margin: 20px auto; width: 70px; filter: brightness(0) invert(1); }
 
-      /* ELEMENTOS QUE ESPERARÁN AL CARGADO */
-      #dynamic-footer-wrap { opacity: 0; }
-
       /* SINGLE VIEW METADATA */
       #project-single-view { display: none; }
       .meta-item { margin-bottom: 30px; opacity: 0; }
@@ -135,7 +142,7 @@ html, body { height: 100%; margin: 0; }
           </div>
         </nav>
 
-      <div class="container" style="padding-top: 150px; flex: 1 0 auto;">
+        <div class="container" style="padding-top: 150px; flex: 1;">
           
           <div id="selection-view">
             <div class="text-center mb-5">
@@ -235,8 +242,6 @@ html, body { height: 100%; margin: 0; }
                   </div>`;
         });
         document.getElementById('categories-container').innerHTML = html;
-        
-        // --- FIX: APARECE EL FOOTER SOLO CUANDO TODO ESTÁ LISTO ---
         gsap.to("#dynamic-footer-wrap", { duration: 1, opacity: 1, delay: 0.8, ease: "power2.out" });
       }
 
@@ -257,7 +262,6 @@ html, body { height: 100%; margin: 0; }
         gsap.to("#selection-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
           gsap.set("#grid-view", { display: "block", opacity: 0, y: 30 });
           gsap.to("#grid-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
-          // Animación de la X entrando lateralmente igual al Index
           gsap.fromTo("#btn-back-cat", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, delay: 0.3 });
         }});
       }
@@ -286,7 +290,6 @@ html, body { height: 100%; margin: 0; }
         gsap.to("#grid-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
           gsap.set("#project-single-view", { display: "block", opacity: 0, y: 30 });
           gsap.to("#project-single-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
-          // Animación de la X y metadatos estilo Index (27)
           gsap.fromTo("#btn-back-grid", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, delay: 0.4 });
           gsap.fromTo(".meta-item", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, stagger: 0.15, delay: 0.4 });
         }});
