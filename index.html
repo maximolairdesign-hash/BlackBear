@@ -287,6 +287,34 @@ input:-webkit-autofill:focus {
     color: #000000 !important; 
     transform: scale(1.12); /* Zoom suave */
 }
+      /* --- MEJORA DE TEXTOS EN PORTAFOLIO --- */
+
+/* Contenedor del texto: le damos más aire y lo pegamos abajo a la izquierda */
+#posts .portfolio-item-content {
+  padding: 40px 30px !important;
+  text-align: left;
+}
+
+/* El Título (ej: FERNAN ESTA TRISTE) */
+#posts .portfolio-item-content h3 {
+  font-weight: 900 !important;      /* Grosor máximo */
+  letter-spacing: 3px !important;   /* Espaciado entre letras */
+  text-transform: uppercase;        /* Todo en mayúsculas para más fuerza */
+  font-size: 1.5rem !important;     /* Tamaño equilibrado */
+  line-height: 1.2;
+  margin-bottom: 12px !important;   /* Separación con la categoría */
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8); /* Sombra para que no se pierda nunca */
+}
+
+/* La Categoría (ej: REELS / VIDEO) */
+#posts .portfolio-item-content p {
+  font-weight: 700 !important;      /* Negrita clara */
+  letter-spacing: 5px !important;   /* Mucho más separado para estilo elegante */
+  text-transform: uppercase;
+  font-size: 0.7rem !important;     /* Más pequeño para crear jerarquía */
+  opacity: 0.8;                     /* Un toque de transparencia */
+  color: #ffffff !important;
+}
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
