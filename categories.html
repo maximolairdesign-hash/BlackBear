@@ -2,29 +2,54 @@
 <html lang="en">
   <head>
     <title>BlackBear | Video Categories</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="css/vendor/icomoon/style.css">
+    <link rel="stylesheet" href="css/vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/vendor/aos.css">
     <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
+
     <style>
-      /* Reutilizamos tu estilo de video de fondo */
+      /* Fondo de video idéntico al index */
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
-      .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
-      body, .unslate_co--site-wrap { background-color: transparent !important; color: white; }
+      .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+      body, .unslate_co--site-wrap, .unslate_co--site-inner { background-color: transparent !important; }
       
+      /* Tarjetas de categorías */
       .category-card {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 40px;
-        border-radius: 10px;
-        transition: 0.3s;
+        padding: 60px 20px;
+        border-radius: 4px;
         text-align: center;
-        margin-bottom: 30px;
+        transition: 0.4s all ease;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-      .category-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-10px); }
+      .category-card h3 { 
+        font-weight: 800; 
+        letter-spacing: 4px; 
+        margin: 0; 
+        font-size: 1.2rem;
+        transition: 0.4s;
+        color: #ffffff;
+      }
+      .category-card:hover { 
+        background: #ffffff; 
+        transform: translateY(-10px);
+      }
+      .category-card:hover h3 { color: #000000; }
+
+      .unslate_co--footer { background-color: #191919 !important; }
     </style>
   </head>
-  <body>
+  <body data-spy="scroll" data-target=".site-nav-target" data-offset="200">
 
     <div class="video-bg-global">
       <video autoplay loop muted playsinline>
@@ -33,37 +58,84 @@
     </div>
 
     <div class="unslate_co--site-wrap">
-      <div class="container" style="padding-top: 100px;">
-        <div class="row justify-content-center">
-          <div class="col-md-8 text-center mb-5">
-            <h1 style="font-weight: 800; text-transform: uppercase; letter-spacing: 3px;">Video Categories</h1>
-            <p>Select a category to filter my work</p>
+      <div class="unslate_co--site-inner">
+
+        <nav class="unslate_co--site-nav site-nav-target">
+          <div class="container">
+            <div class="row align-items-center justify-content-between text-left">
+              <div class="col-md-5 text-right">
+                <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
+                  <li><a href="index.html#home-section" class="nav-link">Home</a></li>
+                  <li><a href="index.html#portfolio-section" class="nav-link">Portfolio</a></li>
+                </ul>
+              </div>
+              <div class="site-logo pos-absolute">
+                <a href="index.html" class="unslate_co--site-logo" style="background: white; padding: 10px 15px; display: inline-block; border-radius: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 40px; width: auto; vertical-align: middle;">
+                </a>
+              </div>
+              <div class="col-md-5 text-right text-lg-left">
+                <ul class="site-nav-ul js-clone-nav text-left d-none d-lg-inline-block">
+                  <li><a href="index.html#journal-section" class="nav-link">Journal</a></li>
+                  <li><a href="index.html#contact-section" class="nav-link">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        <div class="unslate_co--section">
+          <div class="container" style="margin-top: 100px;">
+            <div class="section-heading-wrap text-center mb-5">
+              <h1 class="heading-h2 text-center divider" style="text-transform: uppercase; font-weight: 800;">Video Categories</h1>
+              <p>Select a category to filter my work</p>
+            </div>
+
+            <div class="row gutter-v4">
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="category-card"><h3>REELS</h3></div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="category-card"><h3>COMMERCIALS</h3></div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="category-card"><h3>MOTION GRAPHICS</h3></div>
+              </div>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-12 d-flex justify-content-center">
+                <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-md-4">
-            <div class="category-card">
-              <h3>REELS</h3>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="category-card">
-              <h3>COMMERCIALS</h3>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="category-card">
-              <h3>MOTION GRAPHICS</h3>
+      </div> <footer class="unslate_co--footer unslate_co--section">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-7 text-center">
+              <div class="footer-site-logo">
+                <a href="index.html" style="background: white; padding: 8px 12px; display: inline-block; border-radius: 5px; margin-bottom: 20px;">
+                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 35px; width: auto; vertical-align: middle;">
+                </a>
+              </div>
+              <ul class="footer-site-social" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px;">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+              </ul>
+              <p class="site-copyright" style="margin-top: 20px;">
+                Copyright &copy; 2026 BlackBear. All rights reserved.
+              </p>
             </div>
           </div>
         </div>
-        
-        <div class="text-center mt-5">
-          <a href="index.html" class="btn btn-outline-pill btn-custom-light">Back to Home</a>
-        </div>
-      </div>
+      </footer>
     </div>
 
+    <script src="js/scripts-dist.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
   </body>
 </html>
