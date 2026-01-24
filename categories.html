@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-      /* ESTRUCTURA PARA FORZAR EL FOOTER ABAJO (STICKY FOOTER) SIN HUECOS GRANDES */
+      /* ESTRUCTURA STICKY FOOTER SIN HUECOS */
       html, body { height: 100%; margin: 0; }
       .unslate_co--site-wrap { 
         display: flex; 
@@ -28,17 +28,17 @@
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
 
-      /* FOOTER IDÉNTICO AL INDEX (27) */
+      /* FOOTER IDÉNTICO AL INDEX (27) CON ESPACIO REDUCIDO */
       .unslate_co--footer {
         background-color: #191919 !important;
         position: relative !important;
         display: block !important;
         z-index: 10 !important;
         flex-shrink: 0;
-        padding: 60px 0;
+        padding: 40px 0; /* Bajamos de 60 a 40 para cerrar el gap */
       }
 
-      /* BOTÓN DE CIERRE (X) - ESTILO PREMIUM INDEX (27) */
+      /* BOTÓN DE CIERRE (X) - COPIADO LITERAMENTE DEL INDEX (27) */
       .close-v1 { 
           display: inline-flex !important; 
           align-items: center; 
@@ -47,7 +47,7 @@
           transition: all 0.3s ease; 
           cursor: pointer !important;
           float: right; 
-          opacity: 0; /* Empieza oculto para la animación */
+          opacity: 0;
       }
       .close-v1 .icon-text { 
           font-family: 'Montserrat', sans-serif !important; 
@@ -76,7 +76,7 @@
           transform: scale(1.12); 
       }
 
-      /* CATEGORÍAS CON EFECTO ZOOM */
+      /* CATEGORÍAS */
       .category-card {
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -88,15 +88,15 @@
         height: 100%;
         display: flex; align-items: center; justify-content: center;
       }
-      .category-card h3 { font-weight: 800; letter-spacing: 4px; margin: 0; font-size: 1.2rem; color: #fff; text-transform: uppercase; transition: 0.3s; }
+      .category-card h3 { font-weight: 800; letter-spacing: 4px; margin: 0; font-size: 1.2rem; color: #fff; text-transform: uppercase; }
       .category-card:hover { background: #ffffff; transform: translateY(-10px); }
       .category-card:hover h3 { color: #000 !important; }
       .wavy-divider { display: block; margin: 20px auto; width: 70px; filter: brightness(0) invert(1); }
 
-      /* ELEMENTOS QUE ESPERARÁN AL FADE-IN */
-      .wait-for-load { opacity: 0; }
+      /* BLOQUE DE CARGA - ESTO EVITA EL SALTO */
+      #dynamic-bottom-block { opacity: 0; margin-top: auto; }
 
-      /* METADATOS IGUAL AL INDEX (27) */
+      /* SINGLE VIEW METADATA - IGUAL AL INDEX (27) */
       #project-single-view { display: none; }
       .meta-item { margin-bottom: 30px; opacity: 0; }
       .meta-header { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #ffffff !important; opacity: 0.6; font-weight: 700; margin-bottom: 5px; }
@@ -140,7 +140,7 @@
           </div>
         </nav>
 
-        <div class="container" style="padding-top: 150px;">
+        <div class="container" style="padding-top: 150px; padding-bottom: 50px;">
           
           <div id="selection-view">
             <div class="text-center mb-5">
@@ -149,9 +149,6 @@
               <p>Select a category to filter my work</p>
             </div>
             <div class="row gutter-v4" id="categories-container"></div>
-            <div class="text-center mt-5 mb-5 wait-for-load">
-              <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
-            </div>
           </div>
 
           <div id="grid-view" style="display: none; opacity: 0;">
@@ -168,9 +165,6 @@
               <img src="images/divider.png" class="wavy-divider" alt="divider">
             </div>
             <div id="filtered-posts" class="row gutter-isotope-item"></div>
-            <div class="text-center mt-5 mb-5">
-              <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
-            </div>
           </div>
 
           <div id="project-single-view">
@@ -193,20 +187,26 @@
           </div>
 
         </div>
-      </div> <footer class="unslate_co--footer wait-for-load">
-        <div class="container text-center">
-          <div class="footer-site-logo">
-            <a href="index.html" style="background: white; padding: 8px 12px; display: inline-block; border-radius: 5px; margin-bottom: 20px;">
-              <img src="images/logo.png" alt="BlackBear Logo" style="height: 35px;">
-            </a>
-          </div>
-          <ul class="footer-site-social" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Instagram</a></li>
-          </ul>
-          <p class="site-copyright">Copyright &copy; 2026 BlackBear. All rights reserved.</p>
+      </div> <div id="dynamic-bottom-block">
+        <div class="text-center mb-4">
+          <a href="index.html" class="btn btn-outline-pill btn-custom-light" style="padding: 12px 35px; font-size: 13px;">// BACK TO HOME //</a>
         </div>
-      </footer>
+
+        <footer class="unslate_co--footer">
+          <div class="container text-center">
+            <div class="footer-site-logo">
+              <a href="index.html" style="background: white; padding: 8px 12px; display: inline-block; border-radius: 5px; margin-bottom: 20px;">
+                <img src="images/logo.png" alt="BlackBear Logo" style="height: 35px;">
+              </a>
+            </div>
+            <ul class="footer-site-social" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Instagram</a></li>
+            </ul>
+            <p class="site-copyright">Copyright &copy; 2026 BlackBear. All rights reserved.</p>
+          </div>
+        </footer>
+      </div>
 
     </div> <script src="js/scripts-dist.js"></script>
     <script src="js/main.js"></script>
@@ -237,8 +237,8 @@
         });
         document.getElementById('categories-container').innerHTML = html;
         
-        // --- APARECER EL FOOTER Y EL BOTÓN CUANDO LAS TARJETAS YA ESTÁN ---
-        gsap.to(".wait-for-load", { duration: 1.2, opacity: 1, delay: 0.6, ease: "power2.out" });
+        // --- APARECER EL BLOQUE INFERIOR CON DELAY PARA EVITAR EL SALTO ---
+        gsap.to("#dynamic-bottom-block", { duration: 1.2, opacity: 1, delay: 0.6, ease: "power2.out" });
       }
 
       function openCategory(cat) {
