@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>BlackBear | Video Categories</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      /* Reutilizamos tu estilo de video de fondo */
+      .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
+      .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+      body, .unslate_co--site-wrap { background-color: transparent !important; color: white; }
+      
+      .category-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 10px;
+        transition: 0.3s;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .category-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-10px); }
+    </style>
+  </head>
+  <body>
+
+    <div class="video-bg-global">
+      <video autoplay loop muted playsinline>
+        <source src="video/bg.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="unslate_co--site-wrap">
+      <div class="container" style="padding-top: 100px;">
+        <div class="row justify-content-center">
+          <div class="col-md-8 text-center mb-5">
+            <h1 style="font-weight: 800; text-transform: uppercase; letter-spacing: 3px;">Video Categories</h1>
+            <p>Select a category to filter my work</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="category-card">
+              <h3>REELS</h3>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="category-card">
+              <h3>COMMERCIALS</h3>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="category-card">
+              <h3>MOTION GRAPHICS</h3>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-5">
+          <a href="index.html" class="btn btn-outline-pill btn-custom-light">Back to Home</a>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
