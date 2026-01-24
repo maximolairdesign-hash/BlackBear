@@ -15,17 +15,27 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
+      /* ESTRUCTURA PARA FORZAR EL FOOTER ABAJO (STICKY FOOTER) */
+      html, body { height: 100%; margin: 0; }
+      .unslate_co--site-wrap { 
+        display: flex; 
+        flex-direction: column; 
+        min-height: 100vh; 
+        background-color: transparent !important; 
+      }
+      .unslate_co--site-inner { flex: 1 0 auto; } /* Esto empuja el footer al fondo */
+
       .video-bg-global { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: #000; }
       .video-bg-global video { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-      body, .unslate_co--site-wrap, .unslate_co--site-inner { background-color: transparent !important; color: white; }
 
-      /* FOOTER ESTILO INDEX (27) */
+      /* FOOTER IDÉNTICO AL INDEX (27) */
       .unslate_co--footer {
         background-color: #191919 !important;
         position: relative !important;
         display: block !important;
         z-index: 10 !important;
-        margin-top: 50px;
+        flex-shrink: 0; /* Evita que el footer se encoja */
+        padding: 60px 0;
       }
 
       /* BOTÓN DE CIERRE (X) - COPIADO LITERAMENTE DEL INDEX (27) */
@@ -37,7 +47,7 @@
           transition: all 0.3s ease; 
           cursor: pointer !important;
           float: right; 
-          opacity: 0; /* Empieza oculto para animar con GSAP */
+          opacity: 0;
       }
       .close-v1 .icon-text { 
           font-family: 'Montserrat', sans-serif !important; 
@@ -83,10 +93,10 @@
       .category-card:hover h3 { color: #000 !important; }
       .wavy-divider { display: block; margin: 20px auto; width: 70px; filter: brightness(0) invert(1); }
 
-      /* ELEMENTOS QUE ESPERARÁN AL CARGADO */
-      #dynamic-footer-wrap { opacity: 0; }
+      /* ELEMENTOS DINÁMICOS */
+      #dynamic-content-block { opacity: 0; }
 
-      /* SINGLE VIEW METADATA */
+      /* SINGLE VIEW METADATA - IGUAL AL INDEX (27) */
       #project-single-view { display: none; }
       .meta-item { margin-bottom: 30px; opacity: 0; }
       .meta-header { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: #ffffff !important; opacity: 0.6; font-weight: 700; margin-bottom: 5px; }
@@ -100,8 +110,8 @@
     </div>
 
     <div class="unslate_co--site-wrap">
+      
       <div class="unslate_co--site-inner">
-
         <nav class="unslate_co--site-nav site-nav-target">
           <div class="container">
             <div class="row align-items-center justify-content-between text-left">
@@ -130,7 +140,7 @@
           </div>
         </nav>
 
-        <div class="container" style="padding-top: 150px; min-height: 70vh;">
+        <div class="container" style="padding-top: 150px; padding-bottom: 100px;">
           
           <div id="selection-view">
             <div class="text-center mb-5">
@@ -177,32 +187,28 @@
           </div>
 
         </div>
-
-        <div id="dynamic-footer-wrap">
-          <div class="text-center mt-5 mb-5">
-            <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
-          </div>
-
-          <footer class="unslate_co--footer unslate_co--section">
-            <div class="container text-center">
-              <div class="footer-site-logo">
-                <a href="index.html" style="background: white; padding: 8px 12px; display: inline-block; border-radius: 5px; margin-bottom: 20px;">
-                  <img src="images/logo.png" alt="BlackBear Logo" style="height: 35px;">
-                </a>
-              </div>
-              <ul class="footer-site-social" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-              </ul>
-              <p class="site-copyright">Copyright &copy; 2026 BlackBear. All rights reserved.</p>
-            </div>
-          </footer>
+      </div> <div id="dynamic-content-block">
+        <div class="text-center mb-5">
+          <a href="index.html" class="btn btn-outline-pill btn-custom-light">// BACK TO HOME //</a>
         </div>
 
+        <footer class="unslate_co--footer">
+          <div class="container text-center">
+            <div class="footer-site-logo">
+              <a href="index.html" style="background: white; padding: 8px 12px; display: inline-block; border-radius: 5px; margin-bottom: 20px;">
+                <img src="images/logo.png" alt="BlackBear Logo" style="height: 35px;">
+              </a>
+            </div>
+            <ul class="footer-site-social" style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+              <li><a href="#">Facebook</a></li>
+              <li><a href="#">Instagram</a></li>
+            </ul>
+            <p class="site-copyright">Copyright &copy; 2026 BlackBear. All rights reserved.</p>
+          </div>
+        </footer>
       </div>
-    </div>
 
-    <script src="js/scripts-dist.js"></script>
+    </div> <script src="js/scripts-dist.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -231,8 +237,8 @@
         });
         document.getElementById('categories-container').innerHTML = html;
         
-        // --- FIX: APARECE EL FOOTER SOLO CUANDO TODO ESTÁ LISTO ---
-        gsap.to("#dynamic-footer-wrap", { duration: 1, opacity: 1, delay: 0.8, ease: "power2.out" });
+        // --- APARECER EL FOOTER CON FADE-IN CUANDO TODO ESTÉ LISTO ---
+        gsap.to("#dynamic-content-block", { duration: 1.2, opacity: 1, delay: 0.5, ease: "power2.out" });
       }
 
       function openCategory(cat) {
@@ -252,7 +258,6 @@
         gsap.to("#selection-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
           gsap.set("#grid-view", { display: "block", opacity: 0, y: 30 });
           gsap.to("#grid-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
-          // Animación de la X entrando lateralmente igual al Index
           gsap.fromTo("#btn-back-cat", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, delay: 0.3 });
         }});
       }
@@ -281,7 +286,6 @@
         gsap.to("#grid-view", { duration: 0.4, opacity: 0, y: 20, display: "none", onComplete: () => {
           gsap.set("#project-single-view", { display: "block", opacity: 0, y: 30 });
           gsap.to("#project-single-view", { duration: 0.6, opacity: 1, y: 0, ease: "power3.out" });
-          // Animación de la X y metadatos estilo Index (27)
           gsap.fromTo("#btn-back-grid", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, delay: 0.4 });
           gsap.fromTo(".meta-item", { opacity: 0, x: 20 }, { duration: 0.5, opacity: 1, x: 0, stagger: 0.15, delay: 0.4 });
         }});
