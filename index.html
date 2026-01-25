@@ -398,44 +398,43 @@ input:-webkit-autofill:focus {
 #journal-grid .overlay {
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%) !important;
 }    
-/* --- NAVEGACIÓN BLACKBEAR: FIX DOBLE LÍNEA Y SCROLL --- */
+/* --- NAVEGACIÓN BLACKBEAR: ESTILO DINÁMICO --- */
 
-/* 1. LIMPIEZA TOTAL: Eliminamos cualquier borde o línea previa del tema */
+/* 1. RESET GENERAL: Quitamos cualquier línea o decoración que el tema ponga por defecto */
 .unslate_co--site-nav .site-nav-ul li a,
 .unslate_co--site-nav .site-nav-ul li.active > a,
 .unslate_co--site-nav .site-nav-ul li a::after {
-    border: none !important;
-    background: none !important;
+    border-bottom: none !important;
     text-decoration: none !important;
+    background: none !important;
 }
 
-/* 2. ESTADO INICIAL (Arriba en el video) */
+/* 2. ESTADO ARRIBA (Sobre video/Fondo oscuro) */
+/* Texto blanco y negrita para todos los links, sin línea */
 .unslate_co--site-nav .site-nav-ul li a {
-    color: #ffffff !important; /* Texto blanco */
-    opacity: 0.7;
-    transition: 0.3s all ease;
-    border-bottom: 2px solid transparent !important; /* Espacio para la línea */
-    padding-bottom: 8px !important;
-}
-
-/* Activo arriba: Solo UNA línea blanca */
-.unslate_co--site-nav .site-nav-ul li.active > a {
     color: #ffffff !important;
+    font-weight: 800 !important; /* Negrita intensa */
     opacity: 1 !important;
-    border-bottom: 2px solid #ffffff !important; /* Esta es la única línea que saldrá */
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: 0.3s all ease;
 }
 
-/* 3. ESTADO AL BAJAR (Scroll) */
-/* Forzamos que cuando la barra detecte scroll, el texto sea NEGRO */
-.unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a,
-.unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a:hover {
+/* 3. ESTADO AL BAJAR (Scroll - Barra blanca) */
+/* Cuando la barra se vuelve blanca, el texto pasa a negro */
+.unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a {
     color: #000000 !important;
 }
 
-/* Activo al bajar: Texto negro + Línea negra */
+/* Solo al bajar activamos la línea negra para la sección donde estás parado */
 .unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li.active > a {
-    color: #000000 !important;
-    border-bottom: 2px solid #000000 !important;
+    border-bottom: 2px solid #000000 !important; /* Línea negra */
+    padding-bottom: 5px !important;
+}
+
+/* Hover al bajar: línea negra suave para feedback */
+.unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a:hover {
+    border-bottom: 2px solid rgba(0,0,0,0.2) !important;
 }
 
     </style>
