@@ -398,45 +398,50 @@ input:-webkit-autofill:focus {
 #journal-grid .overlay {
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%) !important;
 }    
-/* --- NAVEGACIÓN BLACKBEAR: ESTILO DINÁMICO --- */
+/* --- SOLUCIÓN FINAL NAVEGACIÓN BLACKBEAR --- */
 
-/* 1. RESET GENERAL: Quitamos cualquier línea o decoración que el tema ponga por defecto */
+/* 1. RESET TOTAL: Matamos cualquier línea o decoración en toda la barra */
 .unslate_co--site-nav .site-nav-ul li a,
 .unslate_co--site-nav .site-nav-ul li.active > a,
-.unslate_co--site-nav .site-nav-ul li a::after {
-    border-bottom: none !important;
+.unslate_co--site-nav .site-nav-ul li a::after,
+.unslate_co--site-nav .site-nav-ul li a::before {
+    border: none !important;
     text-decoration: none !important;
     background: none !important;
+    padding-bottom: 0 !important;
 }
 
-/* 2. ESTADO ARRIBA (Sobre video/Fondo oscuro) */
-/* Texto blanco y negrita para todos los links, sin línea */
+/* 2. ESTADO ARRIBA (Imagen 1): Texto Blanco, Negrita, SIN LÍNEA */
 .unslate_co--site-nav .site-nav-ul li a {
     color: #ffffff !important;
-    font-weight: 800 !important; /* Negrita intensa */
+    font-weight: 800 !important; /* Bien negrita */
     opacity: 1 !important;
-    font-size: 14px;
-    letter-spacing: 1px;
     transition: 0.3s all ease;
 }
 
-/* 3. ESTADO AL BAJAR (Scroll - Barra blanca) */
-/* Cuando la barra se vuelve blanca, el texto pasa a negro */
-.unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a {
-    color: #000000 !important;
+/* Aseguramos que el link activo arriba TAMBIÉN sea solo texto blanco */
+.unslate_co--site-nav .site-nav-ul li.active > a {
+    color: #ffffff !important;
+    border: none !important; 
 }
 
-/* Solo al bajar activamos la línea negra para la sección donde estás parado */
+/* 3. ESTADO AL BAJAR (Imagen 2 - Barra Blanca): Texto Negro + Línea Negra */
+/* Tu plantilla usa la clase .unslate_co--scrolled cuando bajas */
+.unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a {
+    color: #000000 !important; /* Texto negro */
+}
+
+/* Solo aquí activamos la línea negra para la sección donde estás parado */
 .unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li.active > a {
     border-bottom: 2px solid #000000 !important; /* Línea negra */
     padding-bottom: 5px !important;
 }
 
-/* Hover al bajar: línea negra suave para feedback */
+/* Hover al bajar: línea negra muy suave para que se sienta el click */
 .unslate_co--site-nav.unslate_co--scrolled .site-nav-ul li a:hover {
-    border-bottom: 2px solid rgba(0,0,0,0.2) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.3) !important;
+    padding-bottom: 5px !important;
 }
-
     </style>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
