@@ -397,6 +397,37 @@ input:-webkit-autofill:focus {
 /* 4. Aseguramos que el degradado ayude a la lectura */
 #journal-grid .overlay {
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%) !important;
+}    
+/* --- SOLUCIÓN NAV: TEXTO VISIBLE Y SUBRAYADO ELEGANTE --- */
+
+/* 1. Forzamos color negro en BASE, HOVER y ACTIVO */
+.unslate_co--site-nav .site-nav-ul li a,
+.unslate_co--site-nav .site-nav-ul li a:hover,
+.unslate_co--site-nav .site-nav-ul li.active > a,
+.unslate_co--site-nav .site-nav-ul li a.active {
+    color: #000000 !important; /* Siempre negro */
+    opacity: 1 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+}
+
+/* 2. Línea negra para la sección ACTIVA */
+.unslate_co--site-nav .site-nav-ul li.active > a,
+.unslate_co--site-nav .site-nav-ul li a.active {
+    border-bottom: 2px solid #000000 !important;
+    padding-bottom: 5px !important;
+    font-weight: 700 !important;
+}
+
+/* 3. Línea sutil al pasar el mouse (HOVER) para feedback visual */
+.unslate_co--site-nav .site-nav-ul li a:hover {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2) !important;
+    padding-bottom: 5px !important;
+}
+
+/* 4. Asegurar que el botón de menú móvil también sea negro si es necesario */
+.site-nav-ul-none-onepage a {
+    color: #000000 !important;
 }      
 
     </style>
