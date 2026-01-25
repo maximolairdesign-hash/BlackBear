@@ -91,6 +91,64 @@
 
       .meta-header { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.6); font-weight: 700; }
       .meta-value { display: block; font-size: 15px; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; }
+
+      /* --- CONTROLES PERSONALIZADOS BLACKBEAR --- */
+      .custom-player-wrapper {
+          position: relative;
+          width: 100%;
+          padding-bottom: 56.25%;
+          background: #000;
+          border-radius: 4px;
+          overflow: hidden;
+      }
+
+      #yt-player-target {
+          position: absolute;
+          top: 0; left: 0; width: 100%; height: 100%;
+      }
+
+      .custom-controls {
+          position: absolute;
+          bottom: 0; left: 0; width: 100%;
+          padding: 15px 20px;
+          background: linear-gradient(transparent, rgba(0,0,0,0.8));
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          z-index: 10;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+      }
+
+      .custom-player-wrapper:hover .custom-controls { opacity: 1; }
+
+      #custom-play-pause {
+          background: none;
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          font-size: 18px;
+          width: 30px;
+          padding: 0;
+      }
+
+      .progress-container {
+          flex-grow: 1;
+          height: 3px;
+          background: rgba(255,255,255,0.2);
+          cursor: pointer;
+          position: relative;
+          transition: height 0.2s;
+      }
+
+      .progress-container:hover { height: 6px; }
+
+      #progress-bar {
+          width: 0%;
+          height: 100%;
+          background: #ffffff;
+          box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      }
     </style>
   </head>
   <body>
@@ -205,10 +263,13 @@
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
       const EXCEL_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR9yghObfHQDI1wcM1g4gn2uMOSSd_w-qYkS1TFHAJXsnJDA-zi8A_4X9ymMGhtreM7f0sY8JRGqnBE/pub?gid=0&single=true&output=csv";
       let allItems = [];
+      let player;
+      let progressInterval;
 
       document.addEventListener('DOMContentLoaded', function() {
         Papa.parse(EXCEL_URL, {
@@ -270,35 +331,94 @@
         }});
       }
 
- function openProject(id) {
-  const p = allItems.find(x => x.ID == id);
-  if(!p) return;
+      function openProject(id) {
+        const p = allItems.find(x => x.ID == id);
+        if(!p) return;
 
-  document.getElementById('project-title').innerText = p.Titulo;
-  document.getElementById('project-desc').innerText = p.Descripcion;
-  document.getElementById('project-date').innerText = p.Fecha || "2026";
-  document.getElementById('project-client').innerText = p.Cliente || "Private";
-  
-  let url = p.VideoURL;
-  
-  // Extraemos el ID del video y aplicamos ÚNICAMENTE tus 4 parámetros
-  let youtubeID = url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop();
+        document.getElementById('project-title').innerText = p.Titulo;
+        document.getElementById('project-desc').innerText = p.Descripcion;
+        document.getElementById('project-date').innerText = p.Fecha || "2026";
+        document.getElementById('project-client').innerText = p.Cliente || "Private";
+        
+        const url = p.VideoURL;
+        const youtubeID = url.includes('v=') ? url.split('v=')[1].split('&')[0] : url.split('/').pop();
 
-  let content = (url.includes('youtube.com') || url.includes('youtu.be')) 
-    ? `<div style="position:relative;padding-bottom:56.25%;height:0;">
-        <iframe src="https://www.youtube.com/embed/${youtubeID}?modestbranding=1&rel=0&iv_load_policy=3&controls=1" 
-        style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:4px;" 
-        frameborder="0" 
-        allowfullscreen></iframe>
-       </div>`
-    : `<video controls style="width:100%; border-radius:4px;"><source src="${url}" type="video/mp4"></video>`;
-  
-  document.getElementById('project-visual-content').innerHTML = content;
-  
-  gsap.to("#grid-view", { duration: 0.4, opacity: 0, display: "none", onComplete: () => {
-    gsap.fromTo("#project-single-view", { opacity: 0, display: "block", y: 20 }, { duration: 0.6, opacity: 1, y: 0 });
-  }});
-}
+        document.getElementById('project-visual-content').innerHTML = `
+          <div class="custom-player-wrapper">
+              <div id="yt-player-target"></div>
+              <div class="custom-controls">
+                  <button id="custom-play-pause">▶</button>
+                  <div class="progress-container" id="progress-area">
+                      <div id="progress-bar"></div>
+                  </div>
+              </div>
+          </div>`;
+
+        player = new YT.Player('yt-player-target', {
+          videoId: youtubeID,
+          playerVars: {
+            'controls': 0,
+            'modestbranding': 1,
+            'rel': 0,
+            'iv_load_policy': 3,
+            'disablekb': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+
+        gsap.to("#grid-view", { duration: 0.4, opacity: 0, display: "none", onComplete: () => {
+          gsap.fromTo("#project-single-view", { opacity: 0, display: "block", y: 20 }, { duration: 0.6, opacity: 1, y: 0 });
+        }});
+      }
+
+      function onPlayerReady(event) {
+        const btn = document.getElementById('custom-play-pause');
+        const progressArea = document.getElementById('progress-area');
+
+        btn.onclick = () => {
+          if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+            player.pauseVideo();
+          } else {
+            player.playVideo();
+          }
+        };
+
+        progressArea.onclick = (e) => {
+          const rect = progressArea.getBoundingClientRect();
+          const pos = (e.clientX - rect.left) / rect.width;
+          player.seekTo(pos * player.getDuration());
+        };
+      }
+
+      function onPlayerStateChange(event) {
+        const btn = document.getElementById('custom-play-pause');
+        const bar = document.getElementById('progress-bar');
+
+        if (event.data === YT.PlayerState.PLAYING) {
+          btn.innerText = "II";
+          progressInterval = setInterval(() => {
+            const pct = (player.getCurrentTime() / player.getDuration()) * 100;
+            bar.style.width = pct + "%";
+          }, 100);
+        } else {
+          btn.innerText = "▶";
+          clearInterval(progressInterval);
+        }
+      }
+
+      function closeProject() {
+        gsap.to("#project-single-view", { duration: 0.4, opacity: 0, display: "none", onComplete: () => {
+          if(player) {
+              player.destroy();
+              player = null;
+          }
+          document.getElementById('project-visual-content').innerHTML = "";
+          gsap.fromTo("#grid-view", { opacity: 0, display: "block", y: 20 }, { duration: 0.6, opacity: 1, y: 0 });
+        }});
+      }
     </script>
   </body>
 </html>
